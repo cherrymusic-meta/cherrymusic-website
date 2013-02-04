@@ -9,13 +9,16 @@ if not os.path.exists(SOURCES):
     subprocess.check_output(['git', 'clone', 'git://github.com/devsnd/cherrymusic.git', SOURCES])
 GITPATH = os.path.join(SOURCES,'.git')
 
+def utf8(x):
+    return codecs.decode(x,'UTF-8')
+
 def downloadtags():
     print('updating repo...')
-    print(subprocess.check_output(['git','--git-dir='+GITPATH, '--work-tree='+SOURCES, 'pull']).split())
+    print(utf8(subprocess.check_output(['git','--git-dir='+GITPATH, '--work-tree='+SOURCES, 'pull'])))
     print('DOWNLOADING tagged master versions')
     print('Getting Version info...')
     TAGS=subprocess.check_output(['git','--git-dir='+GITPATH, '--work-tree='+SOURCES, 'tag']).split()
-    TAGS=map(lambda x:codecs.decode(x,'UTF-8'),TAGS)
+    TAGS=map(utf8,TAGS)
     VERSIONPATH = os.path.join(RESOURCES,'versions')
     if not os.path.exists(VERSIONPATH):
         os.makedirs(VERSIONPATH)
@@ -33,6 +36,8 @@ def downloadtags():
             except subprocess.CalledProcessError:
                 print('ERROR donwloading file! https://github.com/devsnd/cherrymusic/tarball/'+i)
                 exit(1)
+    print('adding all versions to repo...')
+    print(utf8(subprocess.check_output(['git','add',VERSIONPATH+'/*'])))
     print('done.')
     
 downloadtags()
