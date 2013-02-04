@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description" content="Stream your own music collection to all your devices! The easy to use free and open-source music streaming server." />
+    <title>CherryMusic | open-source HTML5 music streaming server</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="lightbox/css/lightbox.css" rel="stylesheet" />
+    <link rel="icon" href="favicon32.png" type="image/png">
+    <script src="lightbox/js/jquery-1.7.2.min.js"></script>
+    <script src="lightbox/js/lightbox.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <style>
+          body {
+            padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+          }
+          .screen{
+              float: left;
+          }
+    </style>
+</head>
+<body>
+    <script><!--
+    $(function(){
+        if (window.location.hash.length > 0) {
+            $('ul.nav-tabs > li > a[href="' + window.location.hash + '"]').tab('show');
+        } else {
+            $('ul.nav-tabs > li > a:first').tab('show');
+        }
+        $('#myTab a').on('shown', function (e) {
+            //change hash without scrolling.
+            var thehash = e.target.hash;
+            $(thehash).prop('id',thehash.substr(1)+'-noscroll');
+            window.location.hash = e.target.hash;
+            $(thehash+'-noscroll').prop('id',thehash.substr(1));     
+        });
+        //$(".collapse").collapse();
+    });
+    function gotoDownloads(){
+        $('a[href="#download"]').tab('show');
+    }
+    
+    -->
+    </script>
+    <div class="container">
+        <div class="bs-docs-example">
+            <ul class="nav nav-tabs" id="myTab">
+              <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+              <li class=""><a data-toggle="tab" href="#download">Download</a></li>
+              <li class=""><a data-toggle="tab" href="#sources">Sources</a></li>
+              <li class=""><a data-toggle="tab" href="#screenshots">Screenshots</a></li>
+              <li class=""><a data-toggle="tab" href="#changes">FAQ &amp; Changes</a></li>
+              <li class=""><a data-toggle="tab" href="#about">About</a></li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div id="home" class="tab-pane fade active in">
+                  <!-- HOME START -->
+                        <div class="hero-unit">
+                            <div class="row">
+                                <div class="span3">
+                                    <img src="cherry_music_web_notext.png" height="125" />
+                                </div>
+                                <div class="span4<">
+                                    <h1>CherryMusic</h1>
+                                    <p>Stream your own music collection to all your devices!</p>
+                                    <ul class="unstyled">
+                                        <li>&#x2713; free &amp; open-source</li>
+                                        <li>&#x2713; works on all HTML5 enabled devices</li>
+                                        <li>&#x2713; easy setup, download and go</li>
+                                        <li>&#x2713; share playlists with your friends</li>
+                                    </ul>
+                                    <p><a href="#download" onclick="gotoDownloads();" class="btn btn-primary btn-large">Download now &raquo;</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="alert alert-success">
+                            Version 0.23 is out! Check out the new layout!
+                        </div>
+                        <div class="row">
+                            <div class="span6">
+                                    <h4>Free &amp; Open Source</h4>
+                                    <p>CherryMusic is completely free, you can get the source code
+                                    from github and modify it to your will. It's released under
+                                    a GPL license.
+                                    </p>
+                            </div>
+                            <div class="span6">
+                                <h4>HTML5</h4>
+                                <p>You can listen to your music on all HTML5 compliant devices, that includes
+                                your pretty smart phone (Android or iPhone) as well as just about
+                                any modern browser.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="span6">
+                                <h4>Easy Setup</h4>
+                                <p>After downloading CherryMusic, you must merely tell it where
+                                to look for your music. That's  all. CherryMusic takes care of
+                                all the database bullshit and so on.</p>
+                            </div>
+                            <div class="span6">
+                                <h4>Share</h4>
+                                <p>You can create accounts for your friends and share playlists.
+                                Just like ol'times, give away a cassette tape.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="span12">
+                                <div class="well">
+                                <p>CherryMusic is a standalone music server written in python based on CherryPy and jPlayer. 
+                                It is intended to be an alternative to Last.fm, Spotify, Grooveshark... you name it.</p>
+                                </div>
+                            </div>
+                        </div>
+                    <!-- HOME END -->
+              </div>
