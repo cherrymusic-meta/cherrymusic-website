@@ -2,22 +2,26 @@
                 <!-- CHANGES START -->
                 <h2>Requirements</h2>
                 <ul>
-                    <li><a href="http://python.org/download/releases/">Python 3</a></li>
-                    <li><a href="http://www.cherrypy.org">CherryPy</a></li>
+                    <li><a href="http://python.org/download/releases/">Python 2.6+ or 3</a></li>
+                    <li><a href="http://www.cherrypy.org">CherryPy version 3 or higher</a></li>
                 </ul>
                 optional dependencies:
                 <ul>
                     <li><a href="">stagger: for reading mp3 tags</a></li>
                     <li><a href="">lame: for live mp3 transcoding</a></li>
                     <li><a href="">vorbis: for live ogg transcoding</a></li>
+                    <li><a href="">faad/faac: for live aac transcoding</a></li>
+                    <li><a href="">ffmpeg: for live transcoding all kinds of formats</a></li>
                 </ul>
                 <h2>FAQ</h2>
                 <ul>
                     <li>
                     <p><b>Does CherryMusic alter my collection in any way?</b></p>
-                    <p>Nope. For CherryMusic your collection is and stays read-only.
+                    <p>Nope. For CherryMusic your collection <i>is and stays read-only</i>.
                     All the indices and additional meta-data are stored in
-                    a folder in your $HOME.
+                    a folder in your
+                    <a href="http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html">
+                        $XDG_DATA_HOME and $XDG_CONFIG_HOME</a> respectively.
                     </p>
                     </li>
                     <li>
@@ -42,7 +46,7 @@
                     </li>
                     <li>
                     <p><b>What about OSX, does it work there?</b></p>
-                    <p>Same as windows, but better; OSX is still *NIX, so I bet a chicken it runs just fine.</p>
+                    <p>Same as windows, but better; OSX is still *NIX, so I'd bet a chicken it runs just fine.</p>
                     </li>
                 </ul>
                 <a name="Changelog"></a><h2>Changelog</h2>
@@ -52,10 +56,11 @@
                     You've found a bug in CherryMusic? That's awesome. Tell us about it! You can open an issue in the <a href="https://github.com/devsnd/cherrymusic/issues">issue tracker of github</a> and we'll take care of it.
                 
                 <h2>Known Issues</h2>
+                <h5>Flash block</h5>
                 <p>An active flash blocker can interfere with the web frontend. 
                 If you have trouble with things like track selection or playback, try whitelisting
                 the server in your browser's flash blocker / plugin manager.</p>
-                <p>On Windows:</p>
+                <h5>On Windows:</h5>
                 <p>FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\Documents and Settings\username\.cherrymusic\
                 \sessions\session-622d41384b5f877a840ba5dfe38408dc4853e8f4.lock'
                 This error can be circumvented by setting the</p>
@@ -63,11 +68,9 @@
                 <p>in the configuration file (C:\Documents and Settings\username.cherrymusic\config)</p>
                 
                 <h5>Known Bugs</h5>
-                <ul>
-                <li>CherryMusic doesn't work when flashblock is enabled. Workaround: add the server ip to your flashblock whitelist.</li>
-                <li>Currently there is a bug in cherrypy, the server framework cherrymusic was built upon, that prevents serving files that have non-ascii characters in their name. 
+                <p>Currently there is a bug in cherrypy, the server framework cherrymusic was built upon, that prevents serving files that have non-ascii characters in their name. 
                 I have already <a href="https://bitbucket.org/cherrypy/cherrypy/issue/1148/wrong-encoding-for-urls-containing-utf-8">filed a bug with a description of a 
-                workaround</a> and I hope it will be resolved soon upstream.</li>
-                </ul>
+                workaround</a> and I hope it will be resolved soon upstream.</p>
+                <p>If you've found a bug, <b>please</b> <a href="http://www.github.com/devsnd/cherrymusic/issues">report it on github</a>. We want to make CherryMusic as cool as possible and need your help!</p>
                 <!-- CHANGES END -->
               </div>

@@ -17,6 +17,9 @@
           .screen{
               float: left;
           }
+          code{
+              color: #0F6FA2 !important;
+          }
     </style>
 </head>
 <body>
@@ -46,11 +49,11 @@
         <div class="bs-docs-example">
             <ul class="nav nav-tabs" id="myTab">
               <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-              <li class=""><a data-toggle="tab" href="#download">Download</a></li>
-              <li class=""><a data-toggle="tab" href="#sources">Sources</a></li>
-              <li class=""><a data-toggle="tab" href="#screenshots">Screenshots</a></li>
-              <li class=""><a data-toggle="tab" href="#changes">FAQ &amp; Changes</a></li>
-              <li class=""><a data-toggle="tab" href="#about">About</a></li>
+              <li class=""><a data-toggle="tab" class="tab-download" href="#download">Download</a></li>
+              <li class=""><a data-toggle="tab" class="tab-sources" href="#sources">Sources</a></li>
+              <li class=""><a data-toggle="tab" class="tab-screenshots" href="#screenshots">Screenshots</a></li>
+              <li class=""><a data-toggle="tab" class="tab-changes" href="#changes">FAQ &amp; Changes</a></li>
+              <li class=""><a data-toggle="tab" class="tab-about" href="#about">About</a></li>
             </ul>
             <div class="tab-content" id="myTabContent">
               <div id="home" class="tab-pane fade active in">
@@ -62,11 +65,12 @@
                                 </div>
                                 <div class="span4<">
                                     <h1>CherryMusic</h1>
-                                    <p>Stream your own music collection to all your devices!</p>
+                                    <p>A music streaming server written in python:<br/>
+                                    Stream your own music collection to all your devices!</p>
                                     <ul class="unstyled">
-                                        <li>&#x2713; free &amp; open-source</li>
-                                        <li>&#x2713; works on all HTML5 enabled devices</li>
+                                        <li>&#x2713; free &amp; open-source (GPL)</li>
                                         <li>&#x2713; easy setup, download and go</li>
+                                        <li>&#x2713; blazingly fast search</li>
                                         <li>&#x2713; share playlists with your friends</li>
                                     </ul>
                                     <p><a href="#download" onclick="gotoDownloads();" class="btn btn-primary btn-large">Download now &raquo;</a></p>
@@ -74,7 +78,7 @@
                             </div>
                         </div>
                         <div class="alert alert-success">
-                            Version 0.23 is out! Check out the new layout!
+                            Version 0.24 is out! Complete rework of the UI!
                         </div>
                         <div class="row">
                             <div class="span6">
@@ -85,24 +89,37 @@
                                     </p>
                             </div>
                             <div class="span6">
+                                <h4>Easy Setup</h4>
+                                <p>After downloading CherryMusic, you must merely tell it where
+                                to look for your music. That's  all. CherryMusic takes care of
+                                all the database bullshit and so on.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="span6">
                                 <h4>HTML5</h4>
                                 <p>You can listen to your music on all HTML5 compliant devices, that includes
                                 your pretty smart phone (Android or iPhone) as well as just about
                                 any modern browser.
                                 </p>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="span6">
-                                <h4>Easy Setup</h4>
-                                <p>After downloading CherryMusic, you must merely tell it where
-                                to look for your music. That's  all. CherryMusic takes care of
-                                all the database bullshit and so on.</p>
-                            </div>
                             <div class="span6">
                                 <h4>Share</h4>
                                 <p>You can create accounts for your friends and share playlists.
                                 Just like ol'times, give away a cassette tape.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="span6">
+                                <h4>Search your music</h4>
+                                <p>CherryMusic has a built-in database, that will index your music.
+                                Find your favorite song in an instant!
+                                </p>
+                            </div>
+                            <div class="span6">
+                                <h4>Album Art</h4>
+                                <p>CherryMusic can automatically fetch the album cover art for all
+                                your music. But don't worry, we <a href="#" onclick="$('a[href=\'#changes\']').tab('show');">don't change anything</a> in your collection.</p>
                             </div>
                         </div>
                         <div class="row">
@@ -127,7 +144,17 @@
                         href="http://www.fomori.org/cherrymusic/versions/cherrymusic-0.24.0.tar.gz">
                         Download CherryMusic 0.24.0
                     </a>
-                    <h5>old versions:</h5>
+                    <h2>Getting started:</h2>
+                    <p>You can now configure CherryMusic in the browser on first start!</p>
+                    <code>$ python cherrymusic --setup --port 8080</code><br /><br />
+                    <p>Just launch firefox (or any browser for that matter):</p>
+                    <code>$ firefox localhost:8080</code>
+                    <br/>
+                    <br/>
+                    <p>Easy, wasn't it?</p>
+                    <br />
+                    <br />
+                    <h3>old versions:</h3>
                     <ul>
                         <li><a href="http://www.fomori.org/cherrymusic/versions/cherrymusic-0.23.0.tar.gz">version 0.23.0</a></li>
 <li><a href="http://www.fomori.org/cherrymusic/versions/cherrymusic-0.22.0.tar.gz">version 0.22.0</a></li>
@@ -161,8 +188,8 @@
                         <p>cherrymusic will offer to do this for you if it cannot find an installed CherryPy to use. </p>
                     </li>
                     <li>
-                        <p>Now simply run the main script using python 3; On first start CherryMusic will create a config file for you, that you need to edit.</p>
-                        <pre><code>$ python cherrymusic</code></pre>
+                        <p>Now simply run the main script using python.</p>
+                        <pre><code>$ python cherrymusic --setup --port 8080</code></pre>
                     </li>
                     <li>
                         <p>Open your browser and play some music!</p>
@@ -237,22 +264,26 @@
                 <!-- CHANGES START -->
                 <h2>Requirements</h2>
                 <ul>
-                    <li><a href="http://python.org/download/releases/">Python 3</a></li>
-                    <li><a href="http://www.cherrypy.org">CherryPy</a></li>
+                    <li><a href="http://python.org/download/releases/">Python 2.6+ or 3</a></li>
+                    <li><a href="http://www.cherrypy.org">CherryPy version 3 or higher</a></li>
                 </ul>
                 optional dependencies:
                 <ul>
                     <li><a href="">stagger: for reading mp3 tags</a></li>
                     <li><a href="">lame: for live mp3 transcoding</a></li>
                     <li><a href="">vorbis: for live ogg transcoding</a></li>
+                    <li><a href="">faad/faac: for live aac transcoding</a></li>
+                    <li><a href="">ffmpeg: for live transcoding all kinds of formats</a></li>
                 </ul>
                 <h2>FAQ</h2>
                 <ul>
                     <li>
                     <p><b>Does CherryMusic alter my collection in any way?</b></p>
-                    <p>Nope. For CherryMusic your collection is and stays read-only.
+                    <p>Nope. For CherryMusic your collection <i>is and stays read-only</i>.
                     All the indices and additional meta-data are stored in
-                    a folder in your $HOME.
+                    a folder in your
+                    <a href="http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html">
+                        $XDG_DATA_HOME and $XDG_CONFIG_HOME</a> respectively.
                     </p>
                     </li>
                     <li>
@@ -277,7 +308,7 @@
                     </li>
                     <li>
                     <p><b>What about OSX, does it work there?</b></p>
-                    <p>Same as windows, but better; OSX is still *NIX, so I bet a chicken it runs just fine.</p>
+                    <p>Same as windows, but better; OSX is still *NIX, so I'd bet a chicken it runs just fine.</p>
                     </li>
                 </ul>
                 <a name="Changelog"></a><h2>Changelog</h2>
@@ -437,10 +468,11 @@
                     You've found a bug in CherryMusic? That's awesome. Tell us about it! You can open an issue in the <a href="https://github.com/devsnd/cherrymusic/issues">issue tracker of github</a> and we'll take care of it.
                 
                 <h2>Known Issues</h2>
+                <h5>Flash block</h5>
                 <p>An active flash blocker can interfere with the web frontend. 
                 If you have trouble with things like track selection or playback, try whitelisting
                 the server in your browser's flash blocker / plugin manager.</p>
-                <p>On Windows:</p>
+                <h5>On Windows:</h5>
                 <p>FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\Documents and Settings\username\.cherrymusic\
                 \sessions\session-622d41384b5f877a840ba5dfe38408dc4853e8f4.lock'
                 This error can be circumvented by setting the</p>
@@ -448,12 +480,10 @@
                 <p>in the configuration file (C:\Documents and Settings\username.cherrymusic\config)</p>
                 
                 <h5>Known Bugs</h5>
-                <ul>
-                <li>CherryMusic doesn't work when flashblock is enabled. Workaround: add the server ip to your flashblock whitelist.</li>
-                <li>Currently there is a bug in cherrypy, the server framework cherrymusic was built upon, that prevents serving files that have non-ascii characters in their name. 
+                <p>Currently there is a bug in cherrypy, the server framework cherrymusic was built upon, that prevents serving files that have non-ascii characters in their name. 
                 I have already <a href="https://bitbucket.org/cherrypy/cherrypy/issue/1148/wrong-encoding-for-urls-containing-utf-8">filed a bug with a description of a 
-                workaround</a> and I hope it will be resolved soon upstream.</li>
-                </ul>
+                workaround</a> and I hope it will be resolved soon upstream.</p>
+                <p>If you've found a bug, <b>please</b> <a href="http://www.github.com/devsnd/cherrymusic/issues">report it on github</a>. We want to make CherryMusic as cool as possible and need your help!</p>
                 <!-- CHANGES END -->
               </div>
             <div id="about" class="tab-pane fade">
@@ -476,6 +506,9 @@
 
             </div>
           </div>
+          <br>
+          <br>
+          <br>
           <br>
     CherryMusic © 2013
     </div>

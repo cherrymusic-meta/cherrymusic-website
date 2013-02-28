@@ -17,6 +17,9 @@
           .screen{
               float: left;
           }
+          code{
+              color: #0F6FA2 !important;
+          }
     </style>
 </head>
 <body>
@@ -46,11 +49,11 @@
         <div class="bs-docs-example">
             <ul class="nav nav-tabs" id="myTab">
               <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-              <li class=""><a data-toggle="tab" href="#download">Download</a></li>
-              <li class=""><a data-toggle="tab" href="#sources">Sources</a></li>
-              <li class=""><a data-toggle="tab" href="#screenshots">Screenshots</a></li>
-              <li class=""><a data-toggle="tab" href="#changes">FAQ &amp; Changes</a></li>
-              <li class=""><a data-toggle="tab" href="#about">About</a></li>
+              <li class=""><a data-toggle="tab" class="tab-download" href="#download">Download</a></li>
+              <li class=""><a data-toggle="tab" class="tab-sources" href="#sources">Sources</a></li>
+              <li class=""><a data-toggle="tab" class="tab-screenshots" href="#screenshots">Screenshots</a></li>
+              <li class=""><a data-toggle="tab" class="tab-changes" href="#changes">FAQ &amp; Changes</a></li>
+              <li class=""><a data-toggle="tab" class="tab-about" href="#about">About</a></li>
             </ul>
             <div class="tab-content" id="myTabContent">
               <div id="home" class="tab-pane fade active in">
@@ -62,11 +65,12 @@
                                 </div>
                                 <div class="span4<">
                                     <h1>CherryMusic</h1>
-                                    <p>Stream your own music collection to all your devices!</p>
+                                    <p>A music streaming server written in python:<br/>
+                                    Stream your own music collection to all your devices!</p>
                                     <ul class="unstyled">
-                                        <li>&#x2713; free &amp; open-source</li>
-                                        <li>&#x2713; works on all HTML5 enabled devices</li>
+                                        <li>&#x2713; free &amp; open-source (GPL)</li>
                                         <li>&#x2713; easy setup, download and go</li>
+                                        <li>&#x2713; blazingly fast search</li>
                                         <li>&#x2713; share playlists with your friends</li>
                                     </ul>
                                     <p><a href="#download" onclick="gotoDownloads();" class="btn btn-primary btn-large">Download now &raquo;</a></p>
@@ -85,24 +89,37 @@
                                     </p>
                             </div>
                             <div class="span6">
+                                <h4>Easy Setup</h4>
+                                <p>After downloading CherryMusic, you must merely tell it where
+                                to look for your music. That's  all. CherryMusic takes care of
+                                all the database bullshit and so on.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="span6">
                                 <h4>HTML5</h4>
                                 <p>You can listen to your music on all HTML5 compliant devices, that includes
                                 your pretty smart phone (Android or iPhone) as well as just about
                                 any modern browser.
                                 </p>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="span6">
-                                <h4>Easy Setup</h4>
-                                <p>After downloading CherryMusic, you must merely tell it where
-                                to look for your music. That's  all. CherryMusic takes care of
-                                all the database bullshit and so on.</p>
-                            </div>
                             <div class="span6">
                                 <h4>Share</h4>
                                 <p>You can create accounts for your friends and share playlists.
                                 Just like ol'times, give away a cassette tape.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="span6">
+                                <h4>Search your music</h4>
+                                <p>CherryMusic has a built-in database, that will index your music.
+                                Find your favorite song in an instant!
+                                </p>
+                            </div>
+                            <div class="span6">
+                                <h4>Album Art</h4>
+                                <p>CherryMusic can automatically fetch the album cover art for all
+                                your music. But don't worry, we <a href="#" onclick="$('a[href=\'#changes\']').tab('show');">don't change anything</a> in your collection.</p>
                             </div>
                         </div>
                         <div class="row">
