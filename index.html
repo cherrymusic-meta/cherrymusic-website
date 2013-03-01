@@ -11,15 +11,21 @@
     <script src="lightbox/js/lightbox.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <style>
-          body {
-            padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-          }
-          .screen{
-              float: left;
-          }
-          code{
-              color: #0F6FA2 !important;
-          }
+    body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+    }
+    .screen{
+        float: left;
+    }
+    code{
+        color: #0F6FA2 !important;
+    }
+    /*force scrollbar*/
+    html {
+        overflow: -moz-scrollbars-vertical;
+        overflow: scroll;
+        overflow-y: scroll;
+    }
     </style>
 </head>
 <body>
@@ -78,7 +84,7 @@
                             </div>
                         </div>
                         <div class="alert alert-success">
-                            Version 0.24 is out! Complete rework of the UI!
+                            Version 0.24.1 is out! Complete rework of the UI!
                         </div>
                         <div class="row">
                             <div class="span6">
@@ -245,7 +251,7 @@
             </div>
             </div><div class="row"></div>
                     <p>But of course they don't tell too much. Just try it out!</p>
-                    <p>The last image is an example of how it cozuld look like on your mobile.</p>
+                    <p>The last image is an example of how it could look like on your mobile.</p>
               </div>
               <div id="changes" class="tab-pane fade">
                 <!-- CHANGES START -->
@@ -265,37 +271,65 @@
                 <h2>FAQ</h2>
                 <ul>
                     <li>
-                    <p><b>Does CherryMusic alter my collection in any way?</b></p>
-                    <p>Nope. For CherryMusic your collection <i>is and stays read-only</i>.
-                    All the indices and additional meta-data are stored in
-                    a folder in your home folder, specificly in the 
-                    <a href="http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html">
-                        $XDG_DATA_HOME and $XDG_CONFIG_HOME</a> folders.
-                    </p>
+                        <p><b>Does CherryMusic alter my collection in any way?</b></p>
+                        <p>Nope. For CherryMusic your collection <i>is and stays read-only</i>.
+                        All the indices and additional meta-data are stored in
+                        a folder in your home folder, specificly in the 
+                        <a href="http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html">
+                            $XDG_DATA_HOME and $XDG_CONFIG_HOME</a> folders.
+                        </p>
                     </li>
                     <li>
-                    <p><b>Is this CherryMusic yet another MPD?</b></p>
-                    <p>No, not at all. MPD is a music server, that is able to play music and
-                    which can be remote controlled by the clients. CherryMusic
-                    is a mp3-Streaming server, that means that the clients will get to 
-                    play to the music. This also means that you will be able to listen to your
-                    music everywhere, as long as you have internet.</p>
+                        <p><b>I've started CherryMusic, but the search doesn't give any results!</b></p>
+                        <p>Please make sure CherryMusic has already indexed your music. You can either
+                        start it with the <code>--update</code> switch, or open the admin panel and click on
+                        "Update Music Library"</p>
                     </li>
                     <li>
-                    <p><b>Are there Packages of this software for my Linux distro?</b></p>
-                    <p>Yes. But right now only for Arch Linux.</p>
-                    <p><a href="http://aur.archlinux.org/packages.php?ID=62928">cherrymusic in the AUR</a></p>
-                    <p>But it should be straight forward to create a package for your distro,
-                    since the build system (distutils) is meant for that.</p>
+                        <p><b>Can I use SSL/HTTPS?</b></p>
+                        <p>Yes, you can. (see the man page/configuration file on how to set it up)</p>
                     </li>
                     <li>
-                    <p><b>Does it work on Windows?</b></p>
-                    <p>Yes. Or rather, probably yes. We're trying to test it on all platforms
-                    but we don't have the time to check everything. Let us know if you experience any problems.</p>
+                        <p><b>Where's my config file?</b></p>
+                        
+                            <ul>
+                                <li><p>On linux:</p>
+                                    <p>Normally it's in <code>~/.config/cherrymusic</code><br/>
+                                    If not, check where your $XDG_CONFIG_HOME points to.</p>
+                                </li>
+                                <li><p>On windows:</p>
+                                    <p>You can find your config file in <code>%APPDATA%/cherrymusic</code>,
+                                    e.g. C:\Users\1337hax0r\Application Data\cherrymusic</p>
+                                </li>
+                                <li><p>On OSX:</p>
+                                <p>It is in <code>~/Application Support/cherrymusic</code></p>
+                                </li>
+                            </ul>
+                            </p>
                     </li>
                     <li>
-                    <p><b>What about OSX, does it work there?</b></p>
-                    <p>Same as windows, but better; OSX is still *NIX, so I'd bet a chicken it runs just fine.</p>
+                        <p><b>Is this CherryMusic yet another MPD?</b></p>
+                        <p>No, not at all. MPD is a music server, that is able to play music and
+                        which can be remote controlled by the clients. CherryMusic
+                        is a mp3-Streaming server, that means that the clients will get to 
+                        play to the music. This also means that you will be able to listen to your
+                        music everywhere, as long as you have internet.</p>
+                    </li>
+                    <li>
+                        <p><b>Are there Packages of this software for my Linux distro?</b></p>
+                        <p>Yes. But right now only for Arch Linux.</p>
+                        <p><a href="http://aur.archlinux.org/packages.php?ID=62928">cherrymusic in the AUR</a></p>
+                        <p>But it should be straight forward to create a package for your distro,
+                        since the build system (distutils) is meant for that.</p>
+                    </li>
+                    <li>
+                        <p><b>Does it work on Windows?</b></p>
+                        <p>Yes. Or rather, probably yes. We're trying to test it on all platforms
+                        but we don't have the time to check everything. Let us know if you experience any problems.</p>
+                    </li>
+                    <li>
+                        <p><b>What about OSX, does it work there?</b></p>
+                        <p>Same as windows, but better; OSX is still *NIX, so I'd bet a chicken it runs just fine.</p>
                     </li>
                 </ul>
                 <a name="Changelog"></a><h2>Changelog</h2>
