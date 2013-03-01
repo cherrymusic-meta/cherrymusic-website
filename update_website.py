@@ -6,6 +6,9 @@ import re
 
 RESOURCES = os.path.dirname(os.path.abspath(__file__))
 SOURCES = os.path.join(RESOURCES,'sources')
+SCREENSHOTDIR = 'screenshots'
+SCREENSHOTTHUMBS = os.path.join(SCREENSHOTDIR,'thumb')
+SCREENSHOTSABS = os.path.join(RESOURCES,SCREENSHOTDIR)
 if not os.path.exists(SOURCES):
     print('Checking out latest source tree')
     subprocess.check_output(['git', 'clone', 'git://github.com/devsnd/cherrymusic.git', SOURCES])
@@ -52,10 +55,11 @@ def generateWebsite():
 """)
         index.write(generateDownload())
         index.write(readFile('sources.html'))
-        index.write(readFile('screenshots.html'))
+        index.write(generateScreenshotSection())
         index.write(generateChanges())
         index.write(readFile('about.html'))
         index.write(readFile('tail.html'))
+    print('all done.')
     
 def readFile(filename):
     with open(filename,'r') as fh:
@@ -73,8 +77,47 @@ def generateDownload():
         dldata = dldata.replace("<!--OLD_VERSIONS-->",'\n'.join(map(listify, allversions[1:])))
         return dldata
         
-def generateScreenshots():
-    return ''
+def generateScreenshotSection():
+    if not os.path.exists(SCREENSHOTTHUMBS):
+        os.mkdir(thumbnaildir)
+    with open('screenshots.html') as ssf:
+        ssdata = ssf.read()
+        ssdata = ssdata.replace("<!--SCREENSHOT-SECTION-->",generateScreenshotList(192))
+        return ssdata
+
+def resizeImage(imagepath,size):
+    with open(os.devnull,'w') as devnull:
+        cmd = ['convert',imagepath,'-resize',str(size[0])+'x'+str(size[1]),'png:-']
+        im = subprocess.Popen(cmd,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        data = im.communicate()[0]
+        return data
+
+def generateScreenshotList(imgsize):
+    print('Creating screenshot thumbnails, if necessary...')
+    for shot in sorted(os.listdir(SCREENSHOTSABS)):
+        screenshotfileabs = os.path.join(SCREENSHOTSABS,shot)
+        screenshotfile = os.path.join(SCREENSHOTDIR,shot)
+        screenshotthumb = os.path.join(SCREENSHOTTHUMBS,shot)
+        if not os.path.exists(screenshotthumb) and screenshotfile.endswith('.png'):
+            print('Creating thumbnail for '+shot)
+            with open(screenshotthumb, 'wb') as thumbfile:
+                thumbfile.write(resizeImage(screenshotfileabs, (imgsize,imgsize)))
+                
+    images = []
+    for shot in sorted(os.listdir(SCREENSHOTSABS)):
+        images.append( (os.path.join(SCREENSHOTDIR,shot), os.path.join(SCREENSHOTTHUMBS,shot)) )
+    rethtml = ''
+    for n in range(len(images)//4+1):
+        rethtml += '<div class="row">'
+        for image in images[n*4:n*4+4]:
+            rethtml +='''
+            <div class="span3">
+                <a href="%s" class="screen" rel="lightbox" >
+                <img height="%d" src="%s" /><br></a>
+            </div>
+            '''%(image[0],imgsize,image[1])
+        rethtml += '</div>'    
+    return rethtml
 
 def generateChanges():
     ret = '<div class="accordion-group">'
