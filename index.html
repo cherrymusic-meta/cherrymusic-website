@@ -84,7 +84,7 @@
                             </div>
                         </div>
                         <div class="alert alert-success">
-                            Version 0.24.1 is out! Complete rework of the UI!
+                            Version 0.25.0 is out! Stability! Yaay!
                         </div>
                         <div class="row">
                             <div class="span6">
@@ -131,7 +131,7 @@
                         <div class="row">
                             <div class="span12">
                                 <div class="well">
-                                <p>CherryMusic is a standalone music server written in python based on CherryPy and jPlayer. 
+                                <p>CherryMusic is a standalone music server written in Python and based on CherryPy and jPlayer.
                                 It is intended to be an alternative to Last.fm, Spotify, Grooveshark... you name it.</p>
                                 </div>
                             </div>
@@ -147,8 +147,8 @@
                     <h2>Download</h2>
                     <p>No-Headaches-grab-it-while-it's-hot-release:</p>
                     <a class="btn btn-primary btn-large"
-                        href="http://www.fomori.org/cherrymusic/versions/cherrymusic-0.24.1.tar.gz">
-                        Download CherryMusic 0.24.1
+                        href="http://www.fomori.org/cherrymusic/versions/cherrymusic-0.25.0.tar.gz">
+                        Download CherryMusic 0.25.0
                     </a>
                     <h2>Getting started:</h2>
                     <p>You can now configure CherryMusic in the browser on first start!</p>
@@ -167,7 +167,8 @@
                     <br>
                     <h3>old versions:</h3>
                     <ul>
-                        <li><a href="http://www.fomori.org/cherrymusic/versions/cherrymusic-0.24.0.tar.gz">version 0.24.0</a></li>
+                        <li><a href="http://www.fomori.org/cherrymusic/versions/cherrymusic-0.24.1.tar.gz">version 0.24.1</a></li>
+<li><a href="http://www.fomori.org/cherrymusic/versions/cherrymusic-0.24.0.tar.gz">version 0.24.0</a></li>
 <li><a href="http://www.fomori.org/cherrymusic/versions/cherrymusic-0.23.0.tar.gz">version 0.23.0</a></li>
 <li><a href="http://www.fomori.org/cherrymusic/versions/cherrymusic-0.22.0.tar.gz">version 0.22.0</a></li>
 <li><a href="http://www.fomori.org/cherrymusic/versions/cherrymusic-0.21.1.tar.gz">version 0.21.1</a></li>
@@ -283,7 +284,7 @@
                         <p><b>Does CherryMusic alter my collection in any way?</b></p>
                         <p>Nope. For CherryMusic your collection <i>is and stays read-only</i>.
                         All the indices and additional meta-data are stored in
-                        a folder in your home folder, specificly in the 
+                        a folder in your home folder, specifically in the
                         <a href="http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html">
                             $XDG_DATA_HOME and $XDG_CONFIG_HOME</a> folders.
                         </p>
@@ -308,7 +309,7 @@
                                     If not, check where your $XDG_CONFIG_HOME points to.</p>
                                 </li>
                                 <li><p>On windows:</p>
-                                    <p>You can find your config file in <code>%APPDATA%/cherrymusic</code>,
+                                    <p>You can find your config file in <code>%APPDATA%\cherrymusic</code>,
                                     e.g. C:\Users\1337hax0r\Application Data\cherrymusic</p>
                                 </li>
                                 <li><p>On OSX:</p>
@@ -336,10 +337,6 @@
                         <p><b>Does it work on Windows?</b></p>
                         <p>Yes. Or rather, probably yes. We're trying to test it on all platforms
                         but we don't have the time to check everything. Let us know if you experience any problems.</p>
-                    </li>
-                    <li>
-                        <p><b>What about OSX, does it work there?</b></p>
-                        <p>Same as windows, but better; OSX is still *NIX, so I'd bet a chicken it runs just fine.</p>
                     </li>
                     <li>
                         <p><b>What about OSX, does it work there?</b></p>
@@ -518,11 +515,12 @@
                 If you have trouble with things like track selection or playback, try whitelisting
                 the server in your browser's flash blocker / plugin manager.</p>
                 <h5>On Windows:</h5>
-                <p>FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\Documents and Settings\username\.cherrymusic\
-                \sessions\session-622d41384b5f877a840ba5dfe38408dc4853e8f4.lock'
+                <p>FileNotFoundError: [WinError 2] The system cannot find the file specified:
+                    'C:\...\cherrymusic\sessions\session-622d41384b5f877a840ba5dfe38408dc4853e8f4.lock'
                 This error can be circumvented by setting the</p>
                 <pre><code>keep_session_in_ram = True</code></pre>
-                <p>in the configuration file (C:\Documents and Settings\username.cherrymusic\config)</p>
+                <p>in the configuration file (<code>%APPDATA%\cherrymusic\cherrymusic.conf</code>,
+                                    e.g. C:\Users\1337hax0r\Application Data\cherrymusic\cherrymusic.conf)</p>
                 
                 <h5>Known Bugs</h5>
                 <p>Currently there is a bug in cherrypy, the server framework cherrymusic was built upon, that prevents serving files that have non-ascii characters in their name. 
