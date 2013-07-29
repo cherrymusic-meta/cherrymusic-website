@@ -30,6 +30,9 @@
         overflow: scroll;
         overflow-y: scroll;
     }
+    .text-center{
+        text-align: center;
+    }
     </style>
 </head>
 <body>
@@ -60,8 +63,8 @@
             <ul class="nav nav-tabs" id="myTab">
               <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
               <li class=""><a data-toggle="tab" class="tab-download" href="#download">Download</a></li>
+              <li class=""><a data-toggle="tab" class="tab-installation" href="#installation">Installation</a></li>
               <li class=""><a data-toggle="tab" class="tab-gettingstarted" href="#gettingstarted">Getting Started</a></li>
-              <li class=""><a data-toggle="tab" class="tab-sources" href="#sources">Sources</a></li>
               <li class=""><a data-toggle="tab" class="tab-screenshots" href="#screenshots">Screenshots</a></li>
               <li class=""><a data-toggle="tab" class="tab-changes" href="#changes">FAQ &amp; Changes</a></li>
               <li class=""><a data-toggle="tab" class="tab-about" href="#about">About</a></li>
@@ -153,17 +156,43 @@
                     <p>No-Headaches-grab-it-while-it's-hot-release:</p>
                     <a class="btn btn-primary btn-large"
                         href="http://www.fomori.org/cherrymusic/versions/cherrymusic-0.26.0.tar.gz">
-                        Download CherryMusic 0.26.0
+                        Download CherryMusic 0.26.0 (.tar.gz)
                     </a>
-                    <hr>
+                    
+                    <!--QUICK INSTALL GUIDES-->
+                    
+                    <div id="quick-install-arch" class="modal hide fade">
+                         <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h3 id="myModalLabel">Arch quick install</h3>
+                        </div>
+                        <div class="modal-body">
+                            <div class="alert alert-info">This quick guide assumes that you use <a href="https://wiki.archlinux.org/index.php/Yaourt">yaourt</a>
+                            for AUR package installation.</div>
+                            <p>Just download cherrymusic straight from the AUR:</p>
+                            
+                            <h4>Minimal Installation (no optional dependencies)</h4>
+                            <pre><code>yaourt -S cherrymusic</code></pre>
+                            <h4>Full Installation (all optional dependencies)</h4>
+                            <pre><code>yaourt -S cherrymusic lame vorbis-tools flac faad2 mpg123 ffmpeg python3-stagger-svn imagemagick</code></pre>
+                            
+                            <h4>More details</h4>
+                            <p>The installation guide in this site has some more specifics.
+                            For a nice system integration and configuration proposals there is a <a href="https://wiki.archlinux.org/index.php/CherryMusic">very detailed setup guide in the arch linux wiki</a> that contains much more useful information</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn" data-dismiss="modal" aria-hidden="true">That's damn helpful!</button>
+                        </div>
+                    </div>
+                    
                     <h3>Distribution packages:</h3>
                     <ul>
-                        <li><img src="archlogo.png"> <a href="https://aur.archlinux.org/packages.php?ID=62928">Arch package in the AUR</a></li>
+                        <li><img src="archlogo.png"> <a href="https://aur.archlinux.org/packages.php?ID=62928">Arch package in the AUR</a>
+                        <a href="#quick-install-arch" role="button" class="btn btn-primary btn-small" data-toggle="modal">show quick install quide for arch</a>
+                        </li>
                         <li><img src="gentoologo.png"> <a href="http://gpo.zugaina.org/media-sound/cherrymusic">Gentoo ebuild</a></li>
-                        
                     </ul>
-                    <br>
-                    <br>
+                    
                     <h3>old versions:</h3>
                     <ul>
                         <li><a href="http://www.fomori.org/cherrymusic/versions/cherrymusic-0.25.2.tar.gz">version 0.25.2</a></li>
@@ -183,6 +212,17 @@
             </div>
             <div id="gettingstarted" class="tab-pane fade">
                 <h2>Getting started</h2>
+                
+                <p>Once CherryMusic is installed, you can configure CherryMusic in the browser on first start!</p>
+                <code>$ python cherrymusic --setup --port 8080</code><br /><br />
+                <p>Just launch firefox (or any browser for that matter):</p>
+                <code>$ firefox localhost:8080</code>
+                <br/>
+                <br/>
+                <p>Easy, wasn't it?</p>
+            </div>
+            <div id="installation" class="tab-pane fade">
+                <!-- SOURCES START -->
                 <h3>Dependencies</h3>
                 <ul>
                     <li><a href="http://python.org/download/releases/">Python 2.6+ or 3</a></li>
@@ -199,88 +239,63 @@
                 optional dependencies (python 2 only):
                 <ul>
                     <li><a href="https://pypi.python.org/pypi/pyOpenSSL">pyOpenSSL: HTTPS support</a></li>
-                </ul>
-                <h3>Quickstart guides:</h3>
-                <div class="accordion-group">
-                    <div class="accordion-heading">
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-arch-install">
-                            <p><img src="archlogo.png"> Arch linux quickstart guide</p>
-                        </a>
-                    </div>
-                    <div id="collapse-arch-install" class="accordion-body collapse">
-                        <div class="accordion-inner">
-                            <div class="alert alert-info">This quick guide assumes that you use <a href="https://wiki.archlinux.org/index.php/Yaourt">yaourt</a>
-                            for AUR package installation</div>
-                            
-                            <h4>Main Installation</h4>
-                            <p>Just download cherrymusic straight from the AUR:</p>
-                            <pre><code>yaourt -S cherrymusic</code></pre>
-                            <p>This will automatically install the dependencies <code>python</code> and
-                            <code>python-cherrypy</code> if you haven't already done so</p>
-                            <p>Alternatively  you can install the newest developement version (less stable, but more features!)</p>
-                            <code>yaourt -S cherrymusic-devel-git</code><br><br>
-                            
-                            <h4>Optional dependencies</h4>
-                            <p>For live transcoding:
-                            <code>pacman -S lame vorbis-tools flac faad2 mpg123 ffmpeg</code>
-                            </p>
-                            <p>For ID tag reading:
-                            <code>yaourt -S python3-stagger-svn</code>
-                            </p>
-                            <p>Album art scaling:
-                            <code>yaourt -S imagemagick</code>
-                            </p>
-                            <br>
-                            <br>
-                            <p>There is a <a href="https://wiki.archlinux.org/index.php/CherryMusic">very detailed setup guide in the arch linux wiki</a> that contains much more useful information</p>
-                        </div>
-                    </div>
-                </div>
-                <h3>First start:</h3>
-                <p>You can now configure CherryMusic in the browser on first start!</p>
-                <code>$ python cherrymusic --setup --port 8080</code><br /><br />
-                <p>Just launch firefox (or any browser for that matter):</p>
-                <code>$ firefox localhost:8080</code>
-                <br/>
-                <br/>
-                <p>Easy, wasn't it?</p>
-
+                </ul>                
+                <hr>
                 <h3>Distribution specific setup guides:</h3>
                 <ul>
-                    <li><img src="archlogo.png"> <a href="https://wiki.archlinux.org/index.php/CherryMusic">Setup on Arch Linux</li>
+                    <li><img src="archlogo.png"> <a href="https://wiki.archlinux.org/index.php/CherryMusic">Setup on Arch Linux</a></li>
+                    this guide probably works for any linux, or any POSIX-system for that matter
                 </ul>
-            </div>
-            <div id="sources" class="tab-pane fade">
-                <!-- SOURCES START -->
-                    <h2>Use the source, Luke</h2>
-                    <ol>
-                    <li>
-                        <p><a href="https://github.com/devsnd/cherrymusic">We're on github</a>. Checkout or download the cherrymusic sources, e.g.:</p>
+                <hr>
+                <h3>Manual setup:</h3>
+                <h4>1. Get CherryMusic. There are two options.</h4>
+                <div class="row">
+                    <div class="span5">
+                        <h5>Download the tarball</h5>
+                        <a href="http://www.fomori.org/cherrymusic/versions/cherrymusic-0.26.0.tar.gz">Download the latest release</a></div>
+                    <div class="span1 text-center"><h3>or</h3></div>
+                    <div class="span6">
+                        <h5>Installing from source</h5>
+                        <a href="https://github.com/devsnd/cherrymusic">We're on github</a>. Checkout or download the cherrymusic sources, e.g.:
                         <pre><code>$ git clone git://github.com/devsnd/cherrymusic.git</code></pre>
-                    </li>
-                    <li>
-                        <p>To use cherrymusic you need <a href="http://www.cherrypy.org">CherryPy</a>. There are two options:</p>
-                        <ul>
-                            <li>
-                                <p>If you don't want to install it: CherryMusic can keep a local copy of the module for you, so you don't have to care about it.
-                            </li>
-                            <li>
-                                <p>Install it. Use your favorite package manager,
-                                or <a href="http://download.cherrypy.org/cherrypy/3.2.2/">download</a> it and do a manual install.</p>
-                            </li>
-                        </ul>
-                        <p>cherrymusic will offer to do this for you if it cannot find an installed CherryPy to use. </p>
-                    </li>
-                    <li>
-                        <p>Now simply run the main script using python.</p>
-                        <pre><code>$ python cherrymusic --setup --port 8080</code></pre>
-                    </li>
-                    <li>
-                        <p>Open your browser and play some music!</p>
-                        <pre><code>$ firefox localhost:8080</code></pre>
-                    </li>
-                    </ol>
-                    <!-- SOURCES END -->
+                    </div>
+                </div>
+                <hr>
+                <h4>2. CherryMusic needs <a href="http://www.cherrypy.org">CherryPy</a>
+                    to work. Again two options:</h4>
+                <div class="row">
+                    <div class="span5">
+                        <h5>Install CherryPy yourself</h5>
+                        <p>Install it. Use your favorite package manager.</p>
+                        <p>On arch<br><code>pacman -S python-cherrypy</code></p>
+                        <p>On debian-ish systems<br><code>aptitude install python-cherrypy</code></p>
+                    </div>
+                    <div class="span1 text-center"><h3>or</h3></div>
+                    <div class="span6">
+                        <h5>Let CherryMusic handle it</h5>
+                        <p><b>CherryMusic can download CherryPy for you.</b> CherryMusic will keep a
+                        local copy of the module inside the same folder in which it resides, so your
+                        system stays clean. If you only want to try it out quickly</p>
+                    </div>
+                </div>
+                <hr>
+                <h4>3. Optional shit:</h4>
+                <div class="row">
+                    <div class="span12">
+                        <h5>On Arch:</h5>
+                        <p>For live transcoding: <code>pacman -S lame vorbis-tools flac faad2 mpg123 ffmpeg</code></p>
+                        <p>For ID tag reading: <code>yaourt -S python3-stagger-svn</code></p>
+                        <p>Album art scaling: <code>yaourt -S imagemagick</code></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span12">
+                        <h5>On Debian based systems:</h5>
+                        <p>For live transcoding: <code>aptitude install lame vorbis-tools flac faad2 mpg123 ffmpeg</code></p>
+                        <p>Album art scaling: <code>aptitude install imagemagick</code></p>
+                    </div>
+                </div>
+                <!-- SOURCES END -->
             </div>
               <div id="screenshots" class="tab-pane fade">
                     <h2>Screenshots</h2>
