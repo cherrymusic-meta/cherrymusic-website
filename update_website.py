@@ -46,44 +46,37 @@ def downloadtags():
     print('done.')
     
 def generateWebsite():
+    source_content = readFile('index.src.html')
+    source_content = generateDownload(source_content)
+    source_content = generateScreenshotSection(source_content)
+    source_content = generateChanges(source_content)
     with open('index.html','w') as index:
-        index.write(readFile('head.html'))
         index.write("""
             <!---- DO NOT CHANGE THE INDEX FILE. 
                     IT IS GENERATED AUTOMATICALLY.
             ------>
 """)
-        index.write(generateDownload())
-        index.write(readFile('sources.html'))
-        index.write(generateScreenshotSection())
-        index.write(generateChanges())
-        index.write(readFile('about.html'))
-        index.write(readFile('tail.html'))
+        index.write(source_content)
     print('all done.')
     
 def readFile(filename):
     with open(filename,'r') as fh:
         return fh.read()
 
-def generateDownload():
+def generateDownload(content):
     get_version_by_filename = lambda x: re.findall('(\d\.\d+(\.\d+)?)',x)[0][0]
     filetolink = lambda x : 'http://www.fomori.org/cherrymusic/versions/'+x
     listify = lambda x : '<li><a href="'+filetolink(x)+'">version '+get_version_by_filename(x)+'</a></li>'
     allversions = sorted(os.listdir(VERSIONPATH),reverse=True,key=lambda x :int(re.sub('\D','',x)))
-    with open('download.html') as dl:
-        dldata = dl.read()
-        dldata = dldata.replace("<!--LATEST_VERSION_URL-->",filetolink(allversions[0]))
-        dldata = dldata.replace("<!--LATEST_VERSION_NUMBER-->",get_version_by_filename(allversions[0]))
-        dldata = dldata.replace("<!--OLD_VERSIONS-->",'\n'.join(map(listify, allversions[1:])))
-        return dldata
+    content = content.replace("<!--LATEST_VERSION_URL-->",filetolink(allversions[0]))
+    content = content.replace("<!--LATEST_VERSION_NUMBER-->",get_version_by_filename(allversions[0]))
+    content = content.replace("<!--OLD_VERSIONS-->",'\n'.join(map(listify, allversions[1:])))
+    return content
         
-def generateScreenshotSection():
+def generateScreenshotSection(content):
     if not os.path.exists(SCREENSHOTTHUMBS):
         os.mkdir(thumbnaildir)
-    with open('screenshots.html') as ssf:
-        ssdata = ssf.read()
-        ssdata = ssdata.replace("<!--SCREENSHOT-SECTION-->",generateScreenshotList(192))
-        return ssdata
+    return content.replace("<!--SCREENSHOT-SECTION-->",generateScreenshotList(192))
 
 def resizeImage(imagepath,size):
     with open(os.devnull,'w') as devnull:
@@ -119,7 +112,7 @@ def generateScreenshotList(imgsize):
         rethtml += '</div>'    
     return rethtml
 
-def generateChanges():
+def generateChanges(content):
     ret = '<div class="accordion-group">'
     with open(SOURCES+'/CHANGES','r') as changelog:
         currentVersion = ''
@@ -142,7 +135,7 @@ def generateChanges():
                 ret += '<li>'+line[3:]+'</li>'
     ret += '''</ul></div></div>'''
     ret += '</div>'
-    return readFile('changes.html').replace('<!--CHANGELOG-->',ret)
+    return content.replace('<!--CHANGELOG-->',ret)
 
     
 downloadtags()

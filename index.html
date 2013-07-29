@@ -1,3 +1,7 @@
+
+            <!---- DO NOT CHANGE THE INDEX FILE. 
+                    IT IS GENERATED AUTOMATICALLY.
+            ------>
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,6 +60,7 @@
             <ul class="nav nav-tabs" id="myTab">
               <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
               <li class=""><a data-toggle="tab" class="tab-download" href="#download">Download</a></li>
+              <li class=""><a data-toggle="tab" class="tab-gettingstarted" href="#gettingstarted">Getting Started</a></li>
               <li class=""><a data-toggle="tab" class="tab-sources" href="#sources">Sources</a></li>
               <li class=""><a data-toggle="tab" class="tab-screenshots" href="#screenshots">Screenshots</a></li>
               <li class=""><a data-toggle="tab" class="tab-changes" href="#changes">FAQ &amp; Changes</a></li>
@@ -142,10 +147,6 @@
                         </div>
                     <!-- HOME END -->
               </div>
-
-            <!---- DO NOT CHANGE THE INDEX FILE. 
-                    IT IS GENERATED AUTOMATICALLY.
-            ------>
             <div id="download" class="tab-pane fade">
                   <!-- DOWNLOAD START -->
                     <h2>Download</h2>
@@ -154,24 +155,12 @@
                         href="http://www.fomori.org/cherrymusic/versions/cherrymusic-0.26.0.tar.gz">
                         Download CherryMusic 0.26.0
                     </a>
-                    <h2>Getting started:</h2>
-                    <p>You can now configure CherryMusic in the browser on first start!</p>
-                    <code>$ python cherrymusic --setup --port 8080</code><br /><br />
-                    <p>Just launch firefox (or any browser for that matter):</p>
-                    <code>$ firefox localhost:8080</code>
-                    <br/>
-                    <br/>
-                    <p>Easy, wasn't it?</p>
                     <hr>
                     <h3>Distribution packages:</h3>
                     <ul>
-                        <li><img src="archlogo.png"> <a href="https://aur.archlinux.org/packages.php?ID=62928">Arch package in the AUR</li>
-                        <li><img src="gentoologo.png"> <a href="http://gpo.zugaina.org/media-sound/cherrymusic">Gentoo ebuild</li>
+                        <li><img src="archlogo.png"> <a href="https://aur.archlinux.org/packages.php?ID=62928">Arch package in the AUR</a></li>
+                        <li><img src="gentoologo.png"> <a href="http://gpo.zugaina.org/media-sound/cherrymusic">Gentoo ebuild</a></li>
                         
-                    </ul>
-                    <h3>Distribution specific setup guides:</h3>
-                    <ul>
-                        <li><img src="archlogo.png"> <a href="https://wiki.archlinux.org/index.php/CherryMusic">Setup on Arch Linux</li>
                     </ul>
                     <br>
                     <br>
@@ -191,6 +180,75 @@
 <li><a href="http://www.fomori.org/cherrymusic/versions/cherrymusic-0.10.tar.gz">version 0.10</a></li>
                     </ul>
                 <!-- DOWNLOAD END -->
+            </div>
+            <div id="gettingstarted" class="tab-pane fade">
+                <h2>Getting started</h2>
+                <h3>Dependencies</h3>
+                <ul>
+                    <li><a href="http://python.org/download/releases/">Python 2.6+ or 3</a></li>
+                    <li><a href="http://www.cherrypy.org">CherryPy version 3 or higher</a></li>
+                </ul>
+                optional dependencies:
+                <ul>
+                    <li><a href="https://pypi.python.org/pypi/stagger">stagger: for reading mp3 tags</a></li>
+                    <li><a href="http://lame.sourceforge.net">lame: for live mp3 transcoding</a></li>
+                    <li><a href="http://www.vorbis.com/">vorbis: for live ogg transcoding</a></li>
+                    <li><a href="http://www.audiocoding.com/">faad/faac: for live aac transcoding</a></li>
+                    <li><a href="http://www.ffmpeg.org/">ffmpeg: for live transcoding all kinds of formats</a></li>
+                </ul>
+                optional dependencies (python 2 only):
+                <ul>
+                    <li><a href="https://pypi.python.org/pypi/pyOpenSSL">pyOpenSSL: HTTPS support</a></li>
+                </ul>
+                <h3>Quickstart guides:</h3>
+                <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-arch-install">
+                            <p><img src="archlogo.png"> Arch linux quickstart guide</p>
+                        </a>
+                    </div>
+                    <div id="collapse-arch-install" class="accordion-body collapse">
+                        <div class="accordion-inner">
+                            <div class="alert alert-info">This quick guide assumes that you use <a href="https://wiki.archlinux.org/index.php/Yaourt">yaourt</a>
+                            for AUR package installation</div>
+                            
+                            <h4>Main Installation</h4>
+                            <p>Just download cherrymusic straight from the AUR:</p>
+                            <pre><code>yaourt -S cherrymusic</code></pre>
+                            <p>This will automatically install the dependencies <code>python</code> and
+                            <code>python-cherrypy</code> if you haven't already done so</p>
+                            <p>Alternatively  you can install the newest developement version (less stable, but more features!)</p>
+                            <code>yaourt -S cherrymusic-devel-git</code><br><br>
+                            
+                            <h4>Optional dependencies</h4>
+                            <p>For live transcoding:
+                            <code>pacman -S lame vorbis-tools flac faad2 mpg123 ffmpeg</code>
+                            </p>
+                            <p>For ID tag reading:
+                            <code>yaourt -S python3-stagger-svn</code>
+                            </p>
+                            <p>Album art scaling:
+                            <code>yaourt -S imagemagick</code>
+                            </p>
+                            <br>
+                            <br>
+                            <p>There is a <a href="https://wiki.archlinux.org/index.php/CherryMusic">very detailed setup guide in the arch linux wiki</a> that contains much more useful information</p>
+                        </div>
+                    </div>
+                </div>
+                <h3>First start:</h3>
+                <p>You can now configure CherryMusic in the browser on first start!</p>
+                <code>$ python cherrymusic --setup --port 8080</code><br /><br />
+                <p>Just launch firefox (or any browser for that matter):</p>
+                <code>$ firefox localhost:8080</code>
+                <br/>
+                <br/>
+                <p>Easy, wasn't it?</p>
+
+                <h3>Distribution specific setup guides:</h3>
+                <ul>
+                    <li><img src="archlogo.png"> <a href="https://wiki.archlinux.org/index.php/CherryMusic">Setup on Arch Linux</li>
+                </ul>
             </div>
             <div id="sources" class="tab-pane fade">
                 <!-- SOURCES START -->
@@ -274,23 +332,6 @@
               </div>
               <div id="changes" class="tab-pane fade">
                 <!-- CHANGES START -->
-                <h2>Requirements</h2>
-                <ul>
-                    <li><a href="http://python.org/download/releases/">Python 2.6+ or 3</a></li>
-                    <li><a href="http://www.cherrypy.org">CherryPy version 3 or higher</a></li>
-                </ul>
-                optional dependencies:
-                <ul>
-                    <li><a href="https://pypi.python.org/pypi/stagger">stagger: for reading mp3 tags</a></li>
-                    <li><a href="http://lame.sourceforge.net">lame: for live mp3 transcoding</a></li>
-                    <li><a href="http://www.vorbis.com/">vorbis: for live ogg transcoding</a></li>
-                    <li><a href="http://www.audiocoding.com/">faad/faac: for live aac transcoding</a></li>
-                    <li><a href="http://www.ffmpeg.org/">ffmpeg: for live transcoding all kinds of formats</a></li>
-                </ul>
-                optional dependencies (python 2 only):
-                <ul>
-                    <li><a href="https://pypi.python.org/pypi/pyOpenSSL">pyOpenSSL: HTTPS support</a></li>
-                </ul>
                 <h2>FAQ</h2>
                 <ul>
                     <li>
