@@ -1,0 +1,72 @@
+<h3>Dependencies</h3>
+<ul>
+    <li><a href="http://python.org/download/releases/">Python 2.6+ or 3</a></li>
+    <li><a href="http://www.cherrypy.org">CherryPy version 3 or higher</a></li>
+</ul>
+optional dependencies:
+<ul>
+    <li><a href="https://pypi.python.org/pypi/stagger">stagger: for reading mp3 tags</a></li>
+    <li><a href="http://lame.sourceforge.net">lame: for live mp3 transcoding</a></li>
+    <li><a href="http://www.vorbis.com/">vorbis: for live ogg transcoding</a></li>
+    <li><a href="http://www.audiocoding.com/">faad/faac: for live aac transcoding</a></li>
+    <li><a href="http://www.ffmpeg.org/">ffmpeg: for live transcoding all kinds of formats</a></li>
+</ul>
+optional dependencies (python 2 only):
+<ul>
+    <li><a href="https://pypi.python.org/pypi/pyOpenSSL">pyOpenSSL: HTTPS support</a></li>
+</ul>                
+<hr>
+<h3>Distribution specific setup guides:</h3>
+<ul>
+    <li><img src="archlogo.png"> <a href="https://wiki.archlinux.org/index.php/CherryMusic">Setup on Arch Linux</a></li>
+    this guide probably works for any linux, or any POSIX-system for that matter
+</ul>
+<hr>
+<h3>Manual setup:</h3>
+<h4>1. Get CherryMusic. There are two options.</h4>
+<div class="row">
+    <div class="span5">
+        <h5>Download the tarball</h5>
+        <a href="<!--LATEST_VERSION_URL-->">Download the latest release</a></div>
+    <div class="span1 text-center"><h3>or</h3></div>
+    <div class="span6">
+        <h5>Installing from source</h5>
+        <a href="https://github.com/devsnd/cherrymusic">We're on github</a>. Checkout or download the cherrymusic sources, e.g.:
+        <pre><code>$ git clone git://github.com/devsnd/cherrymusic.git</code></pre>
+    </div>
+</div>
+<hr>
+<h4>2. CherryMusic needs <a href="http://www.cherrypy.org">CherryPy</a>
+    to work. Again two options:</h4>
+<div class="row">
+    <div class="span5">
+        <h5>Install CherryPy yourself</h5>
+        <p>Install it. Use your favorite package manager.</p>
+        <p>On arch<br><code>pacman -S python-cherrypy</code></p>
+        <p>On debian-ish systems<br><code>aptitude install python-cherrypy</code></p>
+    </div>
+    <div class="span1 text-center"><h3>or</h3></div>
+    <div class="span6">
+        <h5>Let CherryMusic handle it</h5>
+        <p><b>CherryMusic can download CherryPy for you.</b> CherryMusic will keep a
+        local copy of the module inside the same folder in which it resides, so your
+        system stays clean. If you only want to try it out quickly</p>
+    </div>
+</div>
+<hr>
+<h4>3. Optional shit:</h4>
+<div class="row">
+    <div class="span12">
+        <h5>On Arch:</h5>
+        <p>For live transcoding: <code>pacman -S lame vorbis-tools flac faad2 mpg123 ffmpeg</code></p>
+        <p>For ID tag reading: <code>yaourt -S python3-stagger-svn</code></p>
+        <p>Album art scaling: <code>yaourt -S imagemagick</code></p>
+    </div>
+</div>
+<div class="row">
+    <div class="span12">
+        <h5>On Debian based systems:</h5>
+        <p>For live transcoding: <code>aptitude install lame vorbis-tools flac faad2 mpg123 ffmpeg</code></p>
+        <p>Album art scaling: <code>aptitude install imagemagick</code></p>
+    </div>
+</div>
