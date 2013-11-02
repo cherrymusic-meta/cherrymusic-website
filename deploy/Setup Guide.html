@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description" content="Stream your own music collection to all your devices! The easy to use free and open-source music streaming server." />
+    <title>CherryMusic | Setup Guide | open-source HTML5 music streaming server</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="lightbox/css/lightbox.css" rel="stylesheet" />
+    <link rel="icon" href="favicon32.png" type="image/png">
+    <script src="lightbox/js/jquery-1.7.2.min.js"></script>
+    <script src="lightbox/js/lightbox.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <style>
+    body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+    }
+    .screen{
+        float: left;
+    }
+    code{
+        color: #0F6FA2 !important;
+    }
+    /*force scrollbar*/
+    html {
+        overflow: -moz-scrollbars-vertical;
+        overflow: scroll;
+        overflow-y: scroll;
+    }
+    .text-center{
+        text-align: center;
+    }
+    </style>
+    <!-- Piwik -->
+    <script type="text/javascript"> 
+      var _paq = _paq || [];
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u=(("https:" == document.location.protocol) ? "https" : "http") + "://fomori.org/cherrymusic/piwik//";
+        _paq.push(['setTrackerUrl', u+'piwik.php']);
+        _paq.push(['setSiteId', 1]);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.type='text/javascript';
+        g.defer=true; g.async=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+      })();
+
+    </script>
+    <noscript><p><img src="http://fomori.org/cherrymusic/piwik/piwik.php?idsite=1" style="border:0" alt="" /></p></noscript>
+    <!-- End Piwik Code -->
+</head>
+<body>
+<div class="container">
+<ul class="nav nav-tabs" id="myTab">
+	<li class=""><a href="index.html">Home</a></li>
+	<li class=""><a href="Download.html">Download</a></li>
+	<li class="active"><a href="Setup Guide.html">Setup Guide</a></li>
+	<li class=""><a href="Contribute.html">Contribute</a></li>
+	<li class=""><a href="Screenshots.html">Screenshots</a></li>
+	<li class=""><a href="Changes.html">Changes</a></li>
+	<li class=""><a href="About.html">About</a></li>
+</ul>
+
+<div class="alert alert-info">This is a mirror of the wiki
+        pages on github. Please consider improving this page by
+        <a href="https://github.com/devsnd/cherrymusic/wiki/Setup-guide">contributing to the wiki</a>.
+        </div><p><a href="http://fomori.org/cherrymusic">CherryMusic</a> is a <strong>music streaming server</strong> based on <a href="http://www.cherrypy.org">CherryPy</a> and <a href="http://jplayer.org">jPlayer</a>. It can be run remotely or on a single computer and is designed to handle huge music libraries of 3 TB and more; it also works well with small collections. In contrast to <a href="http://www.musicpd.org">MPD</a>, <a href="http://www.icecast.org">Icecast</a> and the like, CherryMusic allows <strong>multiple users</strong> to log in via HTTP/HTTPS using a web browser, browse and search the music database, manage playlists and stream music to the browser. The project is developed here, on <a href="https://github.com/devsnd/cherrymusic">GitHub</a>.</p>
+<p>The CherryMusic server runs on <strong>Linux</strong>, <strong>Windows</strong> and <strong>OS X</strong>, as long as <a href="http://python.org/download/releases">Python</a> is available. To use the web client, any device with a modern browser will do.</p>
+<hr />
+<p><strong>As of now, this wiki is rather *NIX specific. Please contribute to this wiki to make this page more microsoft windows friendly</strong></p>
+<hr />
+<a name="contents"></a><h1>Contents</h1>
+<ul>
+<li><a href="Setup Guide.html#quickstart">Quickstart</a></li>
+<li><a href="Setup Guide.html#installation">Installation</a><ul>
+<li><a href="Setup Guide.html#os-specific">OS-specific</a></li>
+<li><a href="Setup Guide.html#generic">Generic</a></li>
+</ul>
+</li>
+<li><a href="Setup Guide.html#dependencies">Dependencies</a></li>
+<li><a href="Setup Guide.html#configuration">Configuration</a><ul>
+<li><a href="Setup Guide.html#setup-in-browser">Setup in Browser</a></li>
+<li><a href="Setup Guide.html#manual-setup">Manual Setup</a></li>
+<li><a href="Setup Guide.html#fine-tuning">Fine Tuning</a></li>
+<li><a href="Setup Guide.html#tips-and-tricks">Tips and Tricks</a></li>
+</ul>
+</li>
+<li><a href="Setup Guide.html#troubleshooting">Troubleshooting</a></li>
+</ul>
+<a name="quickstart"></a><h1>Quickstart</h1>
+<p>The following steps will get you going. For a more permanent setup and further options, see the rest of this document.</p>
+<ol>
+<li>
+<p><a href="https://github.com/devsnd/cherrymusic/releases">Download</a> the latest release and unpack.</p>
+<ul>
+<li>Or <code>git clone -b master https://github.com/devsnd/cherrymusic.git</code>.</li>
+</ul>
+</li>
+<li>
+<p>Run <code>python cherrymusic --setup --port 8080</code> in the CherryMusic directory.</p>
+</li>
+<li>
+<p>Go to <code>http://localhost:8080</code> for basic configuration and later the web client.</p>
+</li>
+<li>
+<p>From then on, run <code>python cherrymusic</code> to start the server.</p>
+</li>
+</ol>
+<a name="installation"></a><h1>Installation</h1>
+<p>CherryMusic works on <strong>Linux</strong>, <strong>Windows</strong> and <strong>OS X</strong> and runs from everywhere you decide to put it. So, there's not really an installation process, you just <a href="Setup Guide.html#generic">get it and go</a>.</p>
+<p>However, there might be more <a href="Setup Guide.html#os-specific">OS-specific</a> stuff available, like special information or whole packages providing more automation. Anything of that kind we know about is listed here.</p>
+<a name="os-specific"></a><h2>OS specific</h2>
+<a name="arch-linux"></a><h3>Arch Linux</h3>
+<p>Please see the CherryMusic page at the <a href="https://wiki.archlinux.org/index.php/CherryMusic">Arch Linux Wiki</a>.</p>
+<a name="microsoft-windows"></a><h3>Microsoft Windows</h3>
+<p>Please see the <a href="https://github.com/devsnd/cherrymusic/wiki/Microsoft-Windows-setup-guide">
+               [CREATE PAGE: Microsoft Windows setup guide]
+               </a> in our wiki.</p>
+<p>Also, check out this <a href="http://blog.kibotu.net/python/how-to-install-cherrymusic-on-windows-8-an-amazing-simplistic-but-powerful-music-streaming-server">blog post</a>.</p>
+<a name="generic"></a><h2>Generic</h2>
+<p>CherryMusic is available here, on <a href="https://github.com/devsnd/cherrymusic">GitHub</a>. There are two branches, the stable branch <em>master</em> and the development branch <em>devel</em>. If you do not depend on a completely stable version, the development version is recommended, as it includes all the newest features.</p>
+<p><strong>There is no real installation process, just download CherryMusic and run it directly from the directory!</strong></p>
+<a name="stable-version"></a><h3>Stable version</h3>
+<p>You can directly download the <a href="https://github.com/devsnd/cherrymusic/archive/master.zip">latest stable release</a> or get it via <em>Git</em>:</p>
+<pre><code>git clone --branch master https://github.com/devsnd/cherrymusic.git CHERRYMUSIC-DIR
+</code></pre>
+<p>where <code>CHERRYMUSIC-DIR</code> is the destination directory for the download.</p>
+<a name="development-version"></a><h3>Development version</h3>
+<p>For a more up-to-date version with experimental features, download the <a href="https://github.com/devsnd/cherrymusic/archive/devel.zip">latest devel version</a> or get it via <em>Git</em>:</p>
+<pre><code>git clone --branch devel https://github.com/devsnd/cherrymusic.git CHERRYMUSIC-DIR
+</code></pre>
+<p>where <code>CHERRYMUSIC-DIR</code> is the destination directory for the download.</p>
+<a name="dependencies"></a><h1>Dependencies</h1>
+<a name="required-dependencies"></a><h2>Required Dependencies</h2>
+<ul>
+<li><a href="http://python.org/download/releases">Python</a> (&gt;= 2.6, &gt;=3.2 preferred),</li>
+<li><a href="http://www.cherrypy.org">CherryPy</a> (&gt;= 3).</li>
+</ul>
+<p>If possible, you should install these via your system's package management (on UNIX-like OS).</p>
+<p>If you do not want to install CherryPy on your system, you can also use a local copy in your CherryMusic directory instead: When CherryMusic does not find CherryPy on startup, it will offer to download a copy of it into its own directory, keeping your system clean.</p>
+<a name="optional-dependencies"></a><h2>Optional Dependencies</h2>
+<p>Optional dependencies are:</p>
+<ul>
+<li>
+<p>live transcoding:
+<em><a href="http://lame.sourceforge.net">lame</a></em>, <em><a href="https://www.xiph.org/vorbis">vorbis-tools</a></em>, <em><a href="https://www.xiph.org/flac">flac</a></em>, <em><a href="http://www.audiocoding.com">faad2</a></em>, <em><a href="http://sourceforge.net/projects/mpg123">mpg123</a></em>, <em><a href="http://ffmpeg.org">ffmpeg</a></em></p>
+</li>
+<li>
+<p>ID3-Tag reading:
+<em><a href="https://pypi.python.org/pypi/stagger">stagger</a></em> (works only with Python 3)</p>
+</li>
+<li>
+<p>automatic resizing of displayed cover art:
+<em><a href="http://www.imagemagick.org">imagemagick</a></em></p>
+</li>
+<li>
+<p>HTTPS support in Python 2:
+<em><a href="https://pypi.python.org/pypi/pyOpenSSL">pyOpenSSL</a></em> (in Python 3 it works out of the box)</p>
+</li>
+</ul>
+<p>If possible, you should install those dependencies via your system's package management (on UNIX-like OS).</p>
+<p>If you do not want to install <em>stagger</em> on your system, you can simply skip it. On the first start of CherryMusic, it will figure out that <em>stagger</em> is missing and offer you to download a local copy into the CherryMusic directory, keeping your system clean.</p>
+<a name="configuration"></a><h1>Configuration</h1>
+<a name="setup-in-browser"></a><h2>Setup in Browser</h2>
+<p>To just get it up and running with a basic setup, issue:</p>
+<pre><code>$ python cherrymusic --setup --port 8080
+</code></pre>
+<p>and open the address "localhost:8080" in your browser (e.g. with <a href="https://mozilla.org/firefox">Firefox</a>):</p>
+<pre><code>$ firefox localhost:8080
+</code></pre>
+<p>This will let you configure the most important options from within the browser, after which you can set up the admin account.</p>
+<p>If you want CherryMusic to run as a system service and to automatically start on boot, see section <a href="Setup Guide.html#systemd-service">Systemd service</a> below.</p>
+<a name="manual-setup"></a><h2>Manual setup</h2>
+<p>Start CherryMusic for the initial setup:</p>
+<pre><code>$ python cherrymusic
+</code></pre>
+<p>On first startup CherryMusic will create its data and configuration files in <code>~/.local/share/cherrymusic/</code> and <code>~/.config/cherrymusic/</code>, print a note to <em>stdout</em> and exit.
+Now, edit the configuration file in <code>~/.config/cherrymusic/cherrymusic.conf</code> and change the following lines to match your setup:</p>
+<p><strong>File:</strong> <em>~/.config/cherrymusic/cherrymusic.conf</em>
+<code>[...]
+basedir = /path/to/your/music
+[...]
+port = 8080
+[...]</code></p>
+<p>Open the address "localhost:8080" in your browser (e.g. with <a href="https://mozilla.org/firefox">Firefox</a>) to create an admin account:</p>
+<pre><code>$ firefox localhost:8080
+</code></pre>
+<p>After logging in, populate the search database by clicking <em>Update Music Library</em> in the <em>Admin</em> panel.</p>
+<p>If you want CherryMusic to run as a system service and to automatically start on boot, see section <a href="Setup Guide.html#systemd-service">Systemd service file</a> below. There are many more options; <a href="Setup Guide.html#fine-tuning">Fine tuning</a> has more information.</p>
+<a name="fine-tuning"></a><h2>Fine tuning</h2>
+<p>The configuration of CherryMusic is done in the file <code>~/.config/cherrymusic/cherrymusic.conf</code>. The comments in this file should explain all options. If you need further explanations, read the man pages.
+CherryMusic comes with well-documented manpages. See</p>
+<pre><code>$ man cherrymusic
+$ man cherrymusic.conf
+</code></pre>
+<p>for all available options.</p>
+<a name="tips-and-tricks"></a><h1>Tips and Tricks</h1>
+<a name="music-in-several-locations"></a><h2>Music in several locations</h2>
+<p>Probably the most modular and flexible way of populating CherryMusic's music directory (called "basedir") is to create a dedicated directory and only symlink all paths to your music collections into that directory, e.g.:</p>
+<pre><code>$ mkdir ~/.local/share/cherrymusic/basedir
+$ ln -s /path/to/musicdir1 ~/.local/share/cherrymusic/basedir/musicdir1
+$ ln -s /path/to/musicdir2 ~/.local/share/cherrymusic/basedir/musicdir2
+</code></pre>
+<a name="systemd-service"></a><h2>systemd service</h2>
+<a name="systemd-service-file"></a><h3>systemd service file</h3>
+<p>CherryMusic does not come with a daemon yet, but both CherryMusic <em>AUR</em> packages, <a href="https://aur.archlinux.org/packages/cherrymusic/">stable</a> and <a href="https://aur.archlinux.org/packages/cherrymusic-devel-git/">devel</a>, provide a <em>systemd service file</em> that can be used on any <em>systemd</em> operating system.</p>
+<p><strong>NOTE:</strong> If you are running <a href="https://www.archlinux.org">Arch Linux</a> and installed one of the above mentioned <em>AUR</em> packages, the <em>systemd service file</em> is already in place. All you need to do is enable the service as described at the end of this section. However, it is recommended that you follow the Arch Linux specific instructions as mentioned in section <a href="Setup Guide.html#os-specific">OS-specific</a>.</p>
+<p><strong>File:</strong> <em>/usr/lib/systemd/system/cherrymusic@.service</em>
+```
+[Unit]
+Description=CherryMusic server
+Requires=network.target
+After=network.target</p>
+<p>[Service]
+User=%I
+Type=simple
+ExecStart=/usr/bin/cherrymusic
+StandardOutput=null
+PrivateTmp=true
+Restart=always</p>
+<p>[Install]
+WantedBy=multi-user.target
+```</p>
+<p>This file has to be placed into <code>/usr/lib/systemd/system/</code>:</p>
+<pre><code>$ sudo cp cherrymusic@.service /usr/lib/systemd/system/cherrymusic@.service
+</code></pre>
+<p>and the permissions should be changed:</p>
+<pre><code>$ sudo chmod 644 /usr/lib/systemd/system/cherrymusic@.service
+</code></pre>
+<p>If you want CherryMusic to run as a system service and to automatically start on boot, simply do:</p>
+<a name="start-and-enable-the-systemd-service"></a><h3>Start and enable the systemd service</h3>
+<p><strong>Note:</strong> Replace "USER" with the user that should run CherryMusic (do not use root!).</p>
+<pre><code>$ sudo systemctl start cherrymusic@USER.service
+$ sudo systemctl enable cherrymusic@USER.service
+</code></pre>
+<p>Note that although the CherryMusic service is now run as the user "USER", the service calls still have to be given as root.</p>
+<a name="running-in-a-gnu-screen-session"></a><h2>Running in a GNU Screen session</h2>
+<p>To keep CherryMusic running after logout, it can be run in a <a href="https://www.gnu.org/software/screen/">GNU Screen</a> session.</p>
+<pre><code>$ screen -d -m -S cherrymusic cherrymusic
+</code></pre>
+<p>Since CherryMusic only writes the output to the GNU Screen session, there is nothing to control from within the session. It may be more convenient to use a <a href="http://freedesktop.org/wiki/Software/systemd">systemd</a> service file (Also see section <a href="Setup Guide.html#systemd-service">Systemd service</a> above.). However, this may still be useful for debugging.</p>
+<p>To run it in a GNU Screen session after boot, the following <a href="http://freedesktop.org/wiki/Software/systemd">systemd</a> service file can also be used:</p>
+<p><strong>File:</strong> <em>/usr/lib/systemd/system/cherrymusic@.service</em>
+```
+[Unit]
+Description = CherryMusic server
+Requires = network.target
+After = network.target</p>
+<p>[Service]
+User = %I
+Type = simple
+ExecStart = /usr/bin/screen -d -m -S cherrymusic /usr/bin/cherrymusic
+ExecStop = /usr/bin/screen -X -S cherrymusic quit
+StandardOutput = null
+PrivateTmp = true
+Restart = always</p>
+<p>[Install]
+WantedBy = multi-user.target
+```</p>
+<p>This file has to be placed into <code>/usr/lib/systemd/system/</code>:</p>
+<pre><code>$ sudo cp cherrymusic@.service /usr/lib/systemd/system/cherrymusic@.service
+</code></pre>
+<p>and the permissions should be changed:</p>
+<pre><code>$ sudo chmod 644 /usr/lib/systemd/system/cherrymusic@.service
+</code></pre>
+<p>To finally enable and start the service, see section <a href="Setup Guide.html#Start and enable the systemd service">Systemd service</a> above.</p>
+<a name="troubleshooting"></a><h1>Troubleshooting</h1>
+<a name="deactivate-flash-blocker"></a><h2>Deactivate flash blocker</h2>
+<p>An active flash blocker can interfere with the web frontend. If you have trouble with things like track selection or playback, try whitelisting the server in your browser's flash blocker/plugin manager.</p>
+<a name="microsoft-windows"></a><h2>Microsoft Windows</h2>
+<p>If you are using MS Windows the following error may occur:
+<code>FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Documents and Settings\\username\\.cherrymusic\
+\sessions\\session-622d41384b5f877a840ba5dfe38408dc4853e8f4.lock'</code>
+This error can be circumvented by setting</p>
+<pre><code>keep_session_in_ram = True
+</code></pre>
+<p>in the configuration file (<code>C:\Documents and Settings\username\Application Data\cherrymusic\config</code>).</p>
+<hr>
+CherryMusic © 2012 - 2013
+</div>
+</body>
+</html>

@@ -4,6 +4,7 @@ import subprocess
 import codecs
 import re
 import shutil
+import markdown
 
 RESOURCES = os.path.dirname(os.path.abspath(__file__))
 PATH_SOURCES = os.path.join(RESOURCES, 'cherrymusic_sources')
@@ -21,6 +22,11 @@ SCREENSHOTTHUMBS = os.path.join(SCREENSHOTDIR,'thumb')
 SCREENSHOTSABS = os.path.join(RESOURCES,SCREENSHOTDIR)
 
 VERSIONPATH = os.path.join(ASSET_PATH,'versions')
+
+WIKIPAGES = {
+    'Setup-guide': '31.Setup Guide.html',
+    'Contribute': '32.Contribute.html',
+}
 
 INDEX = 'Home'
 
@@ -183,10 +189,53 @@ def generateChanges(content):
     ret += '</div>'
     return content.replace('<!--CHANGELOG-->',ret)
 
+def anchorHeadlines(content):
+    def headline_with_anchor(match):
+        anchor = match.group(1).replace(' ', '-').lower()
+        return '<a name="%s"></a>%s' % (anchor, match.group(0))
+    return re.sub('<h\d.*?>(.+?)<\/h\d>', headline_with_anchor, content)
+    
+
+def genWikiLink(linkmatch):
+    wikimedialink = linkmatch.group(0)[2:-2]
+    linkparts = wikimedialink.split('|')
+    title = linkparts[0]
+    wikilink = linkparts[0]
+    if len(linkparts) == 2:
+        wikilink = linkparts[1]
+    try:
+        if '#' in wikilink:
+            wikilink, hashtag = wikilink.split('#')
+            sourcefile = WIKIPAGES[wikilink]+'#'+hashtag
+        else:
+            sourcefile = WIKIPAGES[wikilink]
+        htmllink = source_to_page_file_name(sourcefile)
+        return '<a href="%s">%s</a>' % (htmllink, title)
+    except KeyError:
+        return '''<a href="https://github.com/devsnd/cherrymusic/wiki/%s">
+               [CREATE PAGE: %s]
+               </a>'''%(title.replace(' ','-'), title)
+
+def generatePagesFromWiki():
+    for wikipage, outhtml in WIKIPAGES.items():
+        wikicontent = readFile(os.path.join(PATH_WIKI, wikipage+'.md'))
+        htmlcontent = markdown.markdown(wikicontent)
+        # fix wikimedia style links
+        htmlcontent = re.sub('(\[\[.*?\]\])', genWikiLink, htmlcontent)
+        htmlcontent = re.sub('(<h\d[^>]+></)', genWikiLink, htmlcontent)
+        alert = '''<div class="alert alert-info">This is a mirror of the wiki
+        pages on github. Please consider improving this page by
+        <a href="https://github.com/devsnd/cherrymusic/wiki/%s">contributing to the wiki</a>.
+        </div>''' % wikipage
+        htmlcontent = alert + htmlcontent
+        htmlcontent = anchorHeadlines(htmlcontent)
+        writeFile(os.path.join(PAGES_SOURCE_PATH, outhtml), htmlcontent)
+
 if __name__ == '__main__':
     downloadtags()
     # remove old deployment
     shutil.rmtree(DEPLOY_PATH)
     # copy assets
     shutil.copytree(ASSET_PATH, DEPLOY_PATH)
+    generatePagesFromWiki()
     generateWebsite()
