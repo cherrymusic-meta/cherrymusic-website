@@ -226,9 +226,10 @@ def generatePagesFromWiki():
         # fix wikimedia style links
         htmlcontent = re.sub('(\[\[.*?\]\])', genWikiLink, htmlcontent)
         htmlcontent = re.sub('(<h\d[^>]+></)', genWikiLink, htmlcontent)
-        alert = '''<div class="alert alert-info">This is a mirror of the wiki
-        pages on github. Please consider improving this page by
-        <a href="https://github.com/devsnd/cherrymusic/wiki/%s">contributing to the wiki</a>.
+        alert = '''<div class="alert alert-info">This is a mirror of our wiki
+        pages on github. <a href="https://github.com/devsnd/cherrymusic/wiki/%s">
+        Please feel free to edit and contribute to the wiki to improve this page.</a>
+        Thank you.
         </div>''' % wikipage
         htmlcontent = alert + htmlcontent
         htmlcontent = anchorHeadlines(htmlcontent)
