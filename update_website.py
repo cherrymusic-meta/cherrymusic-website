@@ -81,10 +81,9 @@ def generateNavigation(filenames, active_file):
         htmlli += '\t<li class="%s"><a href="%s">%s</a></li>\n' % data
     return '<ul class="nav nav-tabs" id="myTab">\n' + htmlli + '</ul>\n'
 
-
 def generateWebsite():
     main_template = readFile(MAIN_TEMPLATE)
-    page_file_names = sorted(os.listdir(PAGES_SOURCE_PATH))
+    page_file_names = [p for p in sorted(os.listdir(PAGES_SOURCE_PATH)) if p.endswith('.html')]
     for page_file_name in page_file_names:
         page_file_path = os.path.join(PAGES_SOURCE_PATH, page_file_name)
         content = readFile(page_file_path)
@@ -97,6 +96,7 @@ def generateWebsite():
         nav = generateNavigation(page_file_names, page_file_name)
         content = main_template.replace('<!--PAGE-CONTENT-->', content)
         content = content.replace('<!--NAVIGATION-->', nav)
+        content = content.replace('<!--TITLE-->', source_to_page_title(page_file_name))
         deploy_page_file_name = source_to_page_file_name(page_file_name)
         writeFile(os.path.join(DEPLOY_PATH, deploy_page_file_name), content)
 
