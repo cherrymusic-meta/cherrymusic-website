@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description" content="Stream your own music collection to all your devices! The easy to use free and open-source music streaming server." />
+    <title>CherryMusic | Development | open-source HTML5 music streaming server</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="lightbox/css/lightbox.css" rel="stylesheet" />
+    <link rel="icon" href="favicon32.png" type="image/png">
+    <script src="lightbox/js/jquery-1.7.2.min.js"></script>
+    <script src="lightbox/js/lightbox.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <style>
+    body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+    }
+    .screen{
+        float: left;
+    }
+    code{
+        color: #0F6FA2 !important;
+    }
+    /*force scrollbar*/
+    html {
+        overflow: -moz-scrollbars-vertical;
+        overflow: scroll;
+        overflow-y: scroll;
+    }
+    .text-center{
+        text-align: center;
+    }
+    </style>
+    <!-- Piwik -->
+    <script type="text/javascript"> 
+      var _paq = _paq || [];
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u=(("https:" == document.location.protocol) ? "https" : "http") + "://fomori.org/cherrymusic/piwik//";
+        _paq.push(['setTrackerUrl', u+'piwik.php']);
+        _paq.push(['setSiteId', 1]);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.type='text/javascript';
+        g.defer=true; g.async=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+      })();
+
+    </script>
+    <noscript><p><img src="http://fomori.org/cherrymusic/piwik/piwik.php?idsite=1" style="border:0" alt="" /></p></noscript>
+    <!-- End Piwik Code -->
+</head>
+<body>
+<div class="container">
+<ul class="nav nav-tabs" id="myTab">
+	<li class=""><a href="index.html">Home</a></li>
+	<li class=""><a href="Download.html">Download</a></li>
+	<li class=""><a href="Setup Guide.html">Setup Guide</a></li>
+	<li class=""><a href="Contribute.html">Contribute</a></li>
+	<li class="active"><a href="Development.html">Development</a></li>
+	<li class=""><a href="Screenshots.html">Screenshots</a></li>
+	<li class=""><a href="Changes.html">Changes</a></li>
+	<li class=""><a href="About.html">About</a></li>
+</ul>
+
+<div class="alert alert-info">This is a mirror of the wiki
+        pages on github. Please consider improving this page by
+        <a href="https://github.com/devsnd/cherrymusic/wiki/Development">contributing to the wiki</a>.
+        </div><p>Information, resources and conventions concerning cherrymusic development</p>
+<p><a href="https://travis-ci.org/devsnd/cherrymusic"><img alt="Build Status" src="https://travis-ci.org/devsnd/cherrymusic.png?branch=master" /></a> master <br />
+<a href="https://travis-ci.org/devsnd/cherrymusic"><img alt="Build Status" src="https://travis-ci.org/devsnd/cherrymusic.png?branch=devel" /></a> devel</p>
+<a name="front-end-developement"></a><h1>Front-End Developement</h1>
+<p>CherryMusic switched to using <a href="http://getbootstrap.com/">Bootstrap 3</a> which in turn uses <a href="http://lesscss.org/">less-css</a>. less-css is basically css with macros and is normally compiled offline and then deployed with the web-application. We went with a hybrid approach; For the end-user we compile and minify everything. This is the default front-end. For developing, we have a raw and self-compiling version, so we can keep up the developement speed. We've chosen the same approach for the javascript.</p>
+<p>The deployment script (<a href="https://github.com/devsnd/cherrymusic/blob/devel/deploy.py">deploy.py</a>) compresses the javascript and compiles the less-css, so cherrymusic will load more quickly for the end-users. This deployment script uses the <a href="https://github.com/devsnd/cherrymusic/blob/devel/res/devel.html"><code>res/devel.html</code></a> as input and creates <a href="https://github.com/devsnd/cherrymusic/blob/devel/res/devel.html"><code>res/main.html</code></a> as output. If you open cherrymusic in the browser, you get the compiled version as default. (you'll notice that all js files are replaced by only one file called <code>cherrymusic.dist.js</code>)
+You should never make changes to the <code>res/main.html</code> since it is auto-generated, so any changes to the main.html will be overwritten by the deployment script. Furthermore, there are some <a href="https://github.com/janl/mustache.js">mustache</a> HTML templates that might be of interest which are used mostly in <code>res/mediabrowser.js</code> to render search results.</p>
+<p>If you want to make any changes to the frontend you should append a GET parameter <code>devel=True</code> to your URL, e.g. <code>localhost:8080/?devel=True</code>. This will give you the undeployed version of CM, which contains all the JS files and less-css imports and the less-css compiler. Since the less compiler is distributed with CM, this allows for quick changes. We have a not-so-strict naming scheme for all the less-css. If you're curious, the modded parts of bootstrap are: <code>res/bootstrap3/less/cherrymusic.less</code>, <code>res/bootstrap3/less/jplayer.less</code> and <code>res/bootstrap3/less/mediabrowser.less</code></p>
+<p>The deployment script <code>deploy.py</code> requires:</p>
+<ul>
+<li>node.js and the less compiler lessc</li>
+<li>jsmin</li>
+<li>python3</li>
+</ul>
+<p><code>jsmin</code> and <code>lessc</code> have to be in your <code>$PATH</code>.</p>
+<p>You can make changes, test them and submit them without having installed the deploy requirements using the <code>devel=True</code> GET parameter.</p>
+<a name="folder-structure:"></a><h3>folder structure:</h3>
+<p>it's a bit messy, needs to be split into fronend and backend i guess</p>
+<pre><code>├── audioread ------&gt;           A little library we bundled to read basic audio file information
+│   ├── ... 
+├── audiotranscode -&gt;           A rather ugly library I (devsnd) have coded. It can transcode just
+│   │                           about any file when the appropriate codecs are installed.
+│   ├── ... 
+├── backport -------&gt;           This is an interesting part. In backport we keep all the code that has
+│   │                             to be different between python3 and python2. It is kept in a separate
+│   │                             library, so we don't pollute our main code base.
+│   ├── ...
+├── build_and_test_arch.sh -&gt;   Script to build a package for arch linux and test it.
+├── CHANGES --------&gt;           The changelog
+├── cherrymusic ----&gt;           The main application. There's not much going on but command line
+│                                 parsing etc. It mainly imports the cherrymusicserver module
+├── cherrymusicd ---&gt;           A script that can daemonize cherrymusic.
+├── cherrymusicserver -&gt;        The main module. This is all the backend stuff.
+│   ├── albumartfetcher.py -&gt;   Fetches album art based on folder names and the like from
+    │   │                         different webservices, like amazon or bestbuy.
+│   ├── browsersetup.py -&gt;      This contains all the logic for the first-run in-browser setup,
+    │   │                         checks what optional dependencies are installed and so on.
+│   ├── cherrymodel.py -&gt;       This is the abstraction layer that is used by the front-end API 
+│   │                             to access the database or the file-system.
+│   ├── configuration.py -&gt;     Contains all configuration defaults and doc-strings
+│   ├── database ---&gt;           The database module which indexes your files and so on.
+│   │   ├── connect.py -&gt;       Connect to a database
+│   │   ├── defs ---&gt;           Database schema definition and migration definitions
+│   │   │   ├── ...
+│   │   └── sql.py -&gt;           Takes care of DB creation and migration
+│   ├── ext --------&gt;           Small external libraries we bundle with cherrymusic
+│   │   └── zipstream.py -&gt;     A library create zip-files on the fly. Has been ported to python3
+│   ├── httphandler.py -&gt;       The API used from the Frontend. There is a lot going on there.
+│   │                             This is the part where everything else comes together.
+│   │                             Authentification, user management, user options, searching...
+│   │                             Well, just about anything you can do with CM. Might be a good
+│   │                             place to start.
+│   ├── __init__.py -&gt;          The whole configure and setup the server with nice messages dance.
+│   ├── log.py -&gt;               Our logging module
+│   ├── metainfo.py -&gt;          A module to abstract different audio meta info libraries.
+│   │                             It's somewhat useless at the moment.
+│   ├── pathprovider.py -&gt;      A central point to get file-system paths for anything.
+│   │                             This makes it easier to stay X-Platform compatible
+│   ├── playlistdb.py -&gt;        Module to save and restore playlists in a database
+│   ├── progress.py -&gt;          Some classes to give a nice progress report for file database 
+│   │                             updates. Works fine, probably over-engineered.
+│   ├── resultorder.py -&gt;       CM sorts search results in two stages. The first stage is in the
+│   │                             directly in the database. This module contains the second stage
+│   │                             which sorts the files with some funky heuristics.
+│   ├── service.py -&gt;           The service module implements a way to loosly couple different parts
+│   │                             of CM. Modules can turn themselves into services which can be 
+│   │                             referenced by name.
+│   ├── sqlitecache.py -&gt;       Database logic for file indexing and search
+│   ├── test -&gt;                   We have written a lot of tests for all this stuff, but not enough to cover
+│   │                             all our code. The tests might provide a good example for talking to the modules
+│   │   └── ...
+│   ├── tweak.py -&gt;             Contains some variables that can be tweaked during runtime (they are
+│   │                             automatically reloaded into the running server)
+│   ├── userdb.py -&gt;            All the user management
+│   ├── useroptiondb.py -&gt;      All the options chosen by the user
+│   └── util.py -&gt;              A lot of utility functions, like the funky search logger
+├── cmbootstrap -&gt;              Starts the server without cherrymusic for the in-browser setup.
+├── COPYING -&gt;                  The GPL. Read it, it's super cool.
+├── deploy.py -&gt;                The deployment script that compiles res/devel.html into res/main.html
+├── doc
+│   ├── man -&gt;                  The man pages. We should generate them from the wiki somehow...
+│   └── sphinx -&gt;               We don't use sphinx yet, but will be in the future.
+├── MANIFEST.in -&gt;              I don't know what this file does. something something debian?
+├── pre-commit -&gt;               The pre-commit hook script. runs all the tests and coverage reports.
+├── README.md
+├── res -&gt;                      This folder contains all the assets (everything that's not backend code) for CM 
+│   ├── bootstrap3 -&gt;           Bootstrap 3. yes. it contains 3 custom less files
+│   │   ├── ... a lotta stuff ...
+│   │   ├── gen 
+│   │   │   └── cherrymusic.css -&gt; this is the less-css file compiled by deploy.py
+│   │   └── less
+│   │       ├── ... a lotta files again, but:
+│   │       ├── bootstrap.less -&gt; the entrance file. we've imported ours at the bottom
+│   │       ├── cherrymusic.less -&gt; general stuff (queue, playlist) this and that.
+│   │       ├── jplayer.less -&gt; everything about the jPlayer on the bottom
+│   │       ├── mediabrowser.less -&gt; everything about the mediaplayer (file browser)
+│   │       ├── variables.less -&gt; general bootstrap variables
+│   │       └── ... a lot more stuff we'll probably never change.
+│   ├── cherrymusic.dist.js -&gt;  This is all jsvascript files concatenated and compressed
+│   ├── cherrymusic.js -&gt;       The main js file. This is the entrance for UI developement
+│   ├── ... some images ...     They should go in img ... later...
+│   ├── devel.html -&gt;           The main HTML template. This is where you want to change stuff.
+│   ├── firstrun.html -&gt;        HTML shown on first run (create admin user etc.)
+│   ├── img
+│   │   └── ...                 This is where the images _should_ be...
+│   ├── js -&gt;                   All the used js libraries
+│   │   ├── jplayer.playlist.js -&gt; heavily modified version of original by happyworm
+│   │   ├── Jplayer.swf -&gt; flash fallback
+│   │   ├── jquery.jplayer.min.js -&gt; jplayer itself
+│   │   ├── jquery.jplayer.inspector.js -&gt; and jplayers debugger.
+│   │   ├── jquery-... a lot of jquery stuff. mostly not used any more.
+│   │   ├── json2.min.js -&gt; provides some way to build json on older browsers or something
+│   │   └── mustache-0.7.0.js -&gt; client side template engine
+│   ├── login.html -&gt;           login page
+│   ├── login.css -&gt;            style of login page
+│   ├── main.html -&gt;            compiled version of devel.html
+│   ├── mediabrowser.js -&gt;      media/file browser
+│   ├── playlistmanager.js -&gt;   manages playlists, adds tracks, makes sure the track can be
+│   │                             played (decides about transcoding), talks to jplayer and so on
+│   ├── setup.html --&gt;          file used for first in-browser setup
+│   └── templates --&gt;           all the mustache templates
+│       └── ...
+├── runtests --&gt;                makes the tests go round and round.
+└── setup.py --&gt;                distutils setup.py with all kinds of parameters to work hopefully anywhere
+</code></pre>
+<a name="continuous-integration"></a><h1>Continuous Integration</h1>
+<p>[travis-ci] (http://about.travis-ci.org/docs/) tests certain branches after commits to github. <code>.travis.yml</code> contains the relevant configuration.<br />
+<em>travis</em> provides <a href="http://about.travis-ci.org/docs/user/browser-extensions/">browser plugins</a> to display project build status while browsing github. (for firefox, chrome and opera, currently.)<br />
+Add <code>[ci skip]</code> to the commit message to <a href="http://about.travis-ci.org/docs/user/how-to-skip-a-build/">skip a CI build</a> for a commit.</p>
+<a name="restful-interface-definition-(in-developement!)"></a><h1>RESTful Interface definition (in developement!)</h1>
+<p><a href="https://github.com/devsnd/cherrymusic/wiki/RESTful-Interface-definition-">
+               [CREATE PAGE: RESTful Interface definition ]
+               </a></p>
+<a name="release"></a><h1>Release</h1>
+<p>Here's the recommended way to create a new release from the current devel branch.</p>
+<ol>
+<li>
+<p><strong>Set up a virtualenv.</strong></p>
+<pre><code>$ virtualenv release
+$ source release/bin/activate
+$ pip install cherrypy
+$ cd release
+</code></pre>
+</li>
+<li>
+<p><strong>Check out the current devel/HEAD.</strong></p>
+<pre><code>$ git clone --branch devel git@github.com:devsnd/cherrymusic.git
+$ cd cherrymusic
+</code></pre>
+</li>
+<li>
+<p><strong>Test.</strong></p>
+<pre><code>$ ./runtests
+$ python setup.py -q install
+$ cherrymusic
+$ firefox localhost:8080
+</code></pre>
+</li>
+<li>
+<p><strong>Fix.</strong></p>
+<pre><code>$ # ...
+$ git commit ...
+$ git push
+</code></pre>
+</li>
+<li>
+<p><strong>Bump the version.</strong></p>
+<ul>
+<li><code>cherrymusicserver/__init__.py</code></li>
+<li><code>CHANGES</code></li>
+<li><code>README.md</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Create the release commit.</strong></p>
+<pre><code>$ git status    # only the files above should have changed
+$ git diff      # if you wanna doublecheck
+$ git commit --all -m "version X.Y.Z"
+</code></pre>
+</li>
+<li>
+<p><strong>Push the release commit</strong></p>
+<pre><code>$ git push
+</code></pre>
+<p>(If upstream has changes, revert them.)</p>
+</li>
+<li>
+<p><strong>Tag the release commit.</strong></p>
+<pre><code>$ git tag -a "X.Y.Z" [-m &lt;MESSAGE&gt;]
+</code></pre>
+</li>
+<li>
+<p><strong>Bring master up to date.</strong></p>
+<pre><code>$ git checkout master
+$ git merge --ff-only "X.Y.Z"
+</code></pre>
+<p>This should work as a commit-less fast forward merge, since master should be in the history of the tag.</p>
+</li>
+<li>
+<p><strong>Push.</strong></p>
+<pre><code>$ git push --tags
+</code></pre>
+</li>
+</ol>
+<a name="github-rss-feeds"></a><h1>Github RSS Feeds</h1>
+<p>Useful news feeds to keep up to date</p>
+<a name="personal-news"></a><h2>Personal news</h2>
+<p>After logging in, the github home page shows your personal news feed. On the same page, there's a link to the RSS feed of this stream, currently towards the top right corner. In general, it takes the form of</p>
+<pre><code>https://github.com/$USER.private.atom?token=$APITOKEN
+</code></pre>
+<p>There seems to be now way to find out one's API token without finding this RSS link.</p>
+<a name="branch-commits"></a><h2>Branch commits</h2>
+<p>generally:  <code>https://github.com/$USER/$REPOSITORY/commits/$BRANCH.atom</code></p>
+<p>With diff:   <code>http://github-rss.heroku.com/?feed=$FEEDURL</code></p>
+<p><strong>master:</strong> <a href="https://github.com/devsnd/cherrymusic/commits/master.atom">https://github.com/devsnd/cherrymusic/commits/master.atom</a></p>
+<p><strong>devel:</strong> <a href="https://github.com/devsnd/cherrymusic/commits/devel.atom">https://github.com/devsnd/cherrymusic/commits/devel.atom</a></p>
+<p>Since cherrymusic is a public repository, there's no need for authentication.</p>
+<a name="wiki"></a><h2>Wiki</h2>
+<p>Changes: <a href="https://github.com/devsnd/cherrymusic/wiki.atom">https://github.com/devsnd/cherrymusic/wiki.atom</a></p>
+<a name="api"></a><h1>API</h1>
+<p><a href="https://speakerdeck.com/u/dzuelke/p/designing-http-interfaces-and-restful-web-services-sflivesanfrancisco2012-2012-09-27">designing RESTful web services</a></p>
+<a name="links-about-working-with-git"></a><h1>links about working with git</h1>
+<p>just some ideas...
+- <a href="http://nvie.com/posts/a-successful-git-branching-model/">branching model</a>
+- <a href="http://reinh.com/blog/2009/03/02/a-git-workflow-for-agile-teams.html">workflow</a>
+- <a href="http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html">commit messages</a>
+- <a href="http://eagain.net/articles/git-for-computer-scientists/">how git works</a></p>
+<hr>
+CherryMusic © 2012 - 2013
+</div>
+</body>
+</html>

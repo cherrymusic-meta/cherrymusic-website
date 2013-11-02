@@ -26,6 +26,7 @@ VERSIONPATH = os.path.join(ASSET_PATH,'versions')
 WIKIPAGES = {
     'Setup-guide': '31.Setup Guide.html',
     'Contribute': '32.Contribute.html',
+    'Development': '33.Development.html',
 }
 
 INDEX = 'Home'
