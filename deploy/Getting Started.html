@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description" content="Stream your own music collection to all your devices! The easy to use free and open-source music streaming server." />
+    <title>CherryMusic | open-source HTML5 music streaming server</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="lightbox/css/lightbox.css" rel="stylesheet" />
+    <link rel="icon" href="favicon32.png" type="image/png">
+    <script src="lightbox/js/jquery-1.7.2.min.js"></script>
+    <script src="lightbox/js/lightbox.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <style>
+    body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+    }
+    .screen{
+        float: left;
+    }
+    code{
+        color: #0F6FA2 !important;
+    }
+    /*force scrollbar*/
+    html {
+        overflow: -moz-scrollbars-vertical;
+        overflow: scroll;
+        overflow-y: scroll;
+    }
+    .text-center{
+        text-align: center;
+    }
+    </style>
+    <!-- Piwik -->
+    <script type="text/javascript"> 
+      var _paq = _paq || [];
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u=(("https:" == document.location.protocol) ? "https" : "http") + "://fomori.org/cherrymusic/piwik//";
+        _paq.push(['setTrackerUrl', u+'piwik.php']);
+        _paq.push(['setSiteId', 1]);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.type='text/javascript';
+        g.defer=true; g.async=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+      })();
+
+    </script>
+    <noscript><p><img src="http://fomori.org/cherrymusic/piwik/piwik.php?idsite=1" style="border:0" alt="" /></p></noscript>
+    <!-- End Piwik Code -->
+</head>
+<body>
+<div class="container">
+<ul class="nav nav-tabs" id="myTab">
+	<li class=""><a href="index.html">Home</a></li>
+	<li class=""><a href="Download.html">Download</a></li>
+	<li class="active"><a href="Getting Started.html">Getting Started</a></li>
+	<li class=""><a href="Sources.html">Sources</a></li>
+	<li class=""><a href="Screenshots.html">Screenshots</a></li>
+	<li class=""><a href="Changes.html">Changes</a></li>
+	<li class=""><a href="About.html">About</a></li>
+</ul>
+
+<h2>Getting started</h2>
+                
+<p>Once CherryMusic is installed, you can configure CherryMusic in the browser on first start!</p>
+<code>$ python cherrymusic --setup --port 8080</code><br /><br />
+<p>Just launch firefox (or any browser for that matter):</p>
+<code>$ firefox localhost:8080</code>
+<br/>
+<br/>
+<p>Easy, wasn't it?</p>
+</div>
+</body>
+</html>
