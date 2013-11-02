@@ -152,7 +152,7 @@ def generateScreenshotList(imgsize):
                 
     images = []
     for shot in sorted(os.listdir(SCREENSHOTSABS)):
-        images.append( (os.path.join(SCREENSHOTDIR_NAME,shot), os.path.join(SCREENSHOTTHUMBS,shot)) )
+        images.append( (os.path.join(SCREENSHOTDIR_NAME,shot), os.path.join(SCREENSHOTDIR_NAME,'thumbs',shot)) )
     rethtml = ''
     for n in range(len(images)//4+1):
         rethtml += '<div class="row">'
