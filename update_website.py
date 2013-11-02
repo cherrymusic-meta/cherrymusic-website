@@ -17,9 +17,10 @@ PAGES_SOURCE_PATH = os.path.join(RESOURCES, 'pages.src')
 DEPLOY_PATH = os.path.join(RESOURCES, 'deploy')
 ASSET_PATH =  os.path.join(RESOURCES, 'pages.assets')
 
-SCREENSHOTDIR = os.path.join(ASSET_PATH, 'screenshots')
+SCREENSHOTDIR_NAME = 'screenshots'
+SCREENSHOTDIR = os.path.join(ASSET_PATH, SCREENSHOTDIR_NAME)
 SCREENSHOTTHUMBS = os.path.join(SCREENSHOTDIR,'thumb')
-SCREENSHOTSABS = os.path.join(RESOURCES,SCREENSHOTDIR)
+SCREENSHOTSABS = os.path.join(ASSET_PATH, SCREENSHOTDIR)
 
 VERSIONPATH = os.path.join(ASSET_PATH,'versions')
 
@@ -151,7 +152,7 @@ def generateScreenshotList(imgsize):
                 
     images = []
     for shot in sorted(os.listdir(SCREENSHOTSABS)):
-        images.append( (os.path.join(SCREENSHOTDIR,shot), os.path.join(SCREENSHOTTHUMBS,shot)) )
+        images.append( (os.path.join(SCREENSHOTDIR_NAME,shot), os.path.join(SCREENSHOTTHUMBS,shot)) )
     rethtml = ''
     for n in range(len(images)//4+1):
         rethtml += '<div class="row">'
