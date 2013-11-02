@@ -78,7 +78,7 @@ def generateNavigation(filenames, active_file):
     for filename in filenames:
         active = 'active' if filename == active_file else ''
         data = (active, source_to_page_file_name(filename), source_to_page_title(filename))
-        htmlli += '\t<li class="%s"><a data-toggle="tab" href="%s">%s</a></li>\n' % data
+        htmlli += '\t<li class="%s"><a href="%s">%s</a></li>\n' % data
     return '<ul class="nav nav-tabs" id="myTab">\n' + htmlli + '</ul>\n'
 
 
@@ -183,14 +183,10 @@ def generateChanges(content):
     ret += '</div>'
     return content.replace('<!--CHANGELOG-->',ret)
 
-def copyAssets():
-    
-    
-
 if __name__ == '__main__':
     downloadtags()
     # remove old deployment
-    shutile.rmtree(DEPLOY_PATH)
+    shutil.rmtree(DEPLOY_PATH)
     # copy assets
     shutil.copytree(ASSET_PATH, DEPLOY_PATH)
     generateWebsite()
