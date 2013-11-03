@@ -103,10 +103,22 @@ def generateWebsite():
         if '<!--DOWNLOAD-PAGE-->' in content:
             content = generateDownload(content)
         nav = generateNavigation(page_file_names, page_file_name)
+        deploy_page_file_name = source_to_page_file_name(page_file_name)
+        if deploy_page_file_name != 'index.html':
+            header = '''<div class="header-logo">
+            <a href="index.html" class="nohover">
+                <h2>
+                    <img style="margin-bottom: 3px" src="cherrymusic_small.png">
+                    <span style="vertical-align: bottom">CherryMusic</span>
+                </h2>
+            </a>
+            </div>'''
+        else:
+            header = '<div class="header-logo"></div>'
         content = main_template.replace('<!--PAGE-CONTENT-->', content)
+        content = content.replace('<!--HEADER-->', header)
         content = content.replace('<!--NAVIGATION-->', nav)
         content = content.replace('<!--TITLE-->', source_to_page_title(page_file_name))
-        deploy_page_file_name = source_to_page_file_name(page_file_name)
         writeFile(os.path.join(DEPLOY_PATH, deploy_page_file_name), content)
 
 def readFile(filename):

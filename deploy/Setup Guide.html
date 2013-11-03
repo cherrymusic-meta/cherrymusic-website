@@ -11,9 +11,6 @@
     <script src="lightbox/js/lightbox.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <style>
-    body {
-        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-    }
     .screen{
         float: left;
     }
@@ -31,6 +28,15 @@
     }
     code{
         white-space: normal;
+    }
+    .nohover:hover{
+        text-decoration: none;
+    }
+    .header-logo{
+        height: 90px;
+    }
+    .header-logo h2{
+        margin: 0;
     }
     </style>
     <!-- Piwik -->
@@ -52,6 +58,14 @@
 </head>
 <body>
 <div class="container">
+<div class="header-logo">
+            <a href="index.html" class="nohover">
+                <h2>
+                    <img style="margin-bottom: 3px" src="cherrymusic_small.png">
+                    <span style="vertical-align: bottom">CherryMusic</span>
+                </h2>
+            </a>
+            </div>
 <ul class="nav nav-tabs" id="myTab">
 	<li class=""><a href="index.html">Home</a></li>
 	<li class=""><a href="Download.html">Download</a></li>
