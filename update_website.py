@@ -5,6 +5,8 @@ import codecs
 import re
 import shutil
 import markdown
+import json
+
 from collections import OrderedDict
 RESOURCES = os.path.dirname(os.path.abspath(__file__))
 PATH_SOURCES = os.path.join(RESOURCES, 'cherrymusic_sources')
@@ -120,6 +122,8 @@ def generateWebsite():
         content = content.replace('<!--NAVIGATION-->', nav)
         content = content.replace('<!--TITLE-->', source_to_page_title(page_file_name))
         writeFile(os.path.join(DEPLOY_PATH, deploy_page_file_name), content)
+    version_update_check = [{'version': v[0], 'date': v[1], 'features': f} for v, f in parseChangelog().items()]
+    writeFile(os.path.join(DEPLOY_PATH, 'update_check'), json.dumps(version_update_check))
 
 def readFile(filename):
     with open(filename,'r') as fh:
@@ -191,7 +195,7 @@ def parseChangelog():
             if line.strip() == '':
                 continue
             if line.startswith('0'):
-                current_version = line.strip()
+                current_version = tuple(line.strip().split())
                 versions[current_version] = [] # create first feature
                 continue
             if line.startswith(' -'):
@@ -203,7 +207,7 @@ def parseChangelog():
 def generateChanges(content):
     ret = '<div class="accordion-group">'
     for version, features in parseChangelog().items():
-        htmlVersion = version.split()[0].replace('.','-')
+        htmlVersion = version[0].replace('.','-')
         ret += """
                 <div class="accordion-heading">
                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse{1}">
@@ -212,7 +216,7 @@ def generateChanges(content):
                 </div>
                 <div id="collapse{1}" class="accordion-body collapse">
                     <div class="accordion-inner">
-                        <ul>""".format(version,htmlVersion)
+                        <ul>""".format(' '.join(version),htmlVersion)
         for feature in features:
             ret += '        <li>'+feature.replace('\n', '<br>')+'</li>'
         ret += '''      </ul>
