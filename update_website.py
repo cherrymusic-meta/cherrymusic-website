@@ -5,7 +5,7 @@ import codecs
 import re
 import shutil
 import markdown
-
+from collections import OrderedDict
 RESOURCES = os.path.dirname(os.path.abspath(__file__))
 PATH_SOURCES = os.path.join(RESOURCES, 'cherrymusic_sources')
 GITPATH_SOURCES = os.path.join(PATH_SOURCES,'.git')
@@ -179,28 +179,45 @@ def generateScreenshotList(imgsize):
         rethtml += '</div>'    
     return rethtml
 
+def parseChangelog():
+    versions = OrderedDict()
+    with open(PATH_SOURCES+'/CHANGES','r') as changelog:
+        changelog.readline() # jump over header
+        changelog.readline()
+        line = ' '
+        current_version = ''
+        while len(line) != 0:
+            line = changelog.readline()
+            if line.strip() == '':
+                continue
+            if line.startswith('0'):
+                current_version = line.strip()
+                versions[current_version] = [] # create first feature
+                continue
+            if line.startswith(' -'):
+                versions[current_version].append('') # create next feature
+                line = line[2:].strip()
+            versions[current_version][-1] += line # append feature string
+    return versions
+
 def generateChanges(content):
     ret = '<div class="accordion-group">'
-    with open(PATH_SOURCES+'/CHANGES','r') as changelog:
-        currentVersion = ''
-        for line in changelog.readlines():
-            if(line.startswith('0')):
-                if not currentVersion == '':
-                    ret += '''</ul></div></div>'''
-                currentVersion = line
-                htmlVersion = line.split()[0].replace('.','-')
-                ret += """
-            <div class="accordion-heading">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse{1}">
-                    <p>{0}</p>
-                </a>
-            </div>
-            <div id="collapse{1}" class="accordion-body collapse">
-                <div class="accordion-inner">
-                    <ul>""".format(currentVersion,htmlVersion)
-            elif line.startswith(' - '):
-                ret += '<li>'+line[3:]+'</li>'
-    ret += '''</ul></div></div>'''
+    for version, features in parseChangelog().items():
+        htmlVersion = version.split()[0].replace('.','-')
+        ret += """
+                <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse{1}">
+                        <p>{0}</p>
+                    </a>
+                </div>
+                <div id="collapse{1}" class="accordion-body collapse">
+                    <div class="accordion-inner">
+                        <ul>""".format(version,htmlVersion)
+        for feature in features:
+            ret += '        <li>'+feature.replace('\n', '<br>')+'</li>'
+        ret += '''      </ul>
+                    </div>
+                </div>'''
     ret += '</div>'
     return content.replace('<!--CHANGELOG-->',ret)
 
