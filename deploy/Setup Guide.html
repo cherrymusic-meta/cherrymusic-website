@@ -130,11 +130,16 @@
 <a name="os-specific"></a><h2>OS specific</h2>
 <a name="arch-linux"></a><h3>Arch Linux</h3>
 <p>Please see the CherryMusic page at the <a href="https://wiki.archlinux.org/index.php/CherryMusic">Arch Linux Wiki</a>.</p>
+<a name="debian-(wheezy)"></a><h3>Debian (Wheezy)</h3>
+<p>Please see <a href="http://fomori.org/blog/?p=687">this excellent blog post</a> for a step-by-step guide to install and configure CherryMusic on Debian Wheezy.</p>
 <a name="microsoft-windows"></a><h3>Microsoft Windows</h3>
-<p>You need to <a href="http://www.python.org/download/releases/">install the python runtime</a> for CherryMusic to work. We recommend to use the latest version of python 3.</p>
-<p><a href="http://superuser.com/a/143121/122208">Add the python executable to your <code>%PATH%</code></a> environment variable for easier access in the command line.</p>
+<p>You need to <a href="http://www.python.org/download/releases/">install the Python runtime</a> for CherryMusic to work. We recommend to use the latest version of Python 3.</p>
+<p><a href="http://superuser.com/a/143121/122208">Add the Python executable to your <code>%PATH%</code></a> environment variable for easier access in the command line.</p>
 <p>Open your command line using <code>Windows + R</code> and entering <code>cmd</code>. Navigate to the folder where you have downloaded and uncompressed CherryMusic using the <code>cd</code> commmand.</p>
-<p>Configure and start the server as described in the <a href="Setup Guide.html#Configuration">Configuration section</a></p>
+<p>Configure and start the server as described in the <a href="Setup Guide.html#Configuration">Configuration section</a>.
+Also see the <a href="https://github.com/devsnd/cherrymusic/wiki/Microsoft-Windows-setup-guide">
+               [CREATE PAGE: Microsoft Windows setup guide]
+               </a> in our wiki for further reference.</p>
 <a name="generic"></a><h2>Generic</h2>
 <p>CherryMusic is available here, on <a href="https://github.com/devsnd/cherrymusic">GitHub</a>. There are two branches, the stable branch <em>master</em> and the development branch <em>devel</em>. If you do not depend on a completely stable version, the development version is recommended, as it includes all the newest features.</p>
 <p><strong>There is no real installation process, just download CherryMusic and run it directly from the directory!</strong></p>
@@ -291,9 +296,19 @@ WantedBy = multi-user.target
 <pre><code>$ sudo chmod 644 /usr/lib/systemd/system/cherrymusic@.service
 </code></pre>
 <p>To finally enable and start the service, see section <a href="Setup Guide.html#Start and enable the systemd service">Systemd service</a> above.</p>
+<a name="3rd-party-extensions"></a><h1>3rd Party Extensions</h1>
+<ul>
+<li>
+<p>Playback control plugin for Firefox:</p>
+<p>https://addons.mozilla.org/en-US/firefox/addon/cherrymusic-control/</p>
+<p>which is also developed on github: https://github.com/Sets88/cherrymusicctrl</p>
+</li>
+</ul>
 <a name="troubleshooting"></a><h1>Troubleshooting</h1>
 <a name="deactivate-flash-blocker"></a><h2>Deactivate flash blocker</h2>
 <p>An active flash blocker can interfere with the web frontend. If you have trouble with things like track selection or playback, try whitelisting the server in your browser's flash blocker/plugin manager.</p>
+<a name="cherrymusic-does-not-load-on-android-chrome"></a><h2>CherryMusic does not load on Android Chrome</h2>
+<p>This might be due to AdBlock Plus being installed in the browser. CM doesn't feature any ads, so the error is on their side.</p>
 <a name="microsoft-windows"></a><h2>Microsoft Windows</h2>
 <p>If you are using MS Windows the following error may occur:
 <code>FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Documents and Settings\\username\\.cherrymusic\
