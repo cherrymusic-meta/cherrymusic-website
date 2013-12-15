@@ -198,7 +198,7 @@ def parseChangelog():
                 current_version = tuple(line.strip().split())
                 versions[current_version] = [] # create first feature
                 continue
-            if line.startswith(' -'):
+            if line.strip().startswith('-'):
                 versions[current_version].append('') # create next feature
                 line = line[2:].strip()
             versions[current_version][-1] += line # append feature string
