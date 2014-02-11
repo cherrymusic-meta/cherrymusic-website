@@ -81,13 +81,23 @@
 <a name="Changelog"></a><h2>Changelog</h2>
     <div class="accordion-group">
                 <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse0-31-0">
+                        <p>0.31.0 (2014-02-11)</p>
+                    </a>
+                </div>
+                <div id="collapse0-31-0" class="accordion-body collapse">
+                    <div class="accordion-inner">
+                        <ul>        <li>FEATURE: export all playlists at once in a zip file (pls or m3u)</li>        <li>FEATURE: force lower audio bitrate via transcoding (nice for mobile users)</li>        <li>FEATURE: switch between list and cover view of folders</li>        <li>FEATURE: Album art fetcher supports google image search (thanks to Lord-Simon!)</li>        <li>FEATURE: ready for tag support in python 2 using mutagen (thanks to endlesscoil!)</li>        <li>FEATURE: internationalization support for back-end</li>        <li>FEATURE: German translation for back-end</li>        <li>FEATURE: locate tracks from playlist in the file browser</li>        <li>FEATURE: showing current track title in title of the browser tab</li>        <li>FIXED: fixed zip export of playlist having wrong CRC (thanks to johnhe00!)</li>        <li>FIXED: playlists were always saved as public upon first save</li>        <li>FIXED: not showing hidden files anymore in file listings</li>        <li>FIXED: repeat mode now repeats the whole playlist, instead of last track</li>        <li>FIXED: album art fetcher works again with images from amazon</li>        <li>IMPROVEMENT: improved mobile layout (nav bar padding and cover size)</li>        <li>IMPROVEMENT: showing default folder image, when fetching album art fails</li>      </ul>
+                    </div>
+                </div>
+                <div class="accordion-heading">
                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse0-30-0">
                         <p>0.30.0 (2013-12-15)</p>
                     </a>
                 </div>
                 <div id="collapse0-30-0" class="accordion-body collapse">
                     <div class="accordion-inner">
-                        <ul>        <li>FEATURE: Change album art in media browser</li>        <li>FEATURE: Play WMA files via live transcoding (needs ffmpeg)</li>        <li>FEATURE: Update notifications for admins in web client        config key `update_notifications = [True] | False`<br></li>        <li>FEATURE: `--version` switch for main script displays useful info</li>        <li>FIX: !!! SSL config: relative paths are now relative to location of config file</li>        <li>FIX: Resolve some unicode issues when playing tracks containing non-ASCII characters</li>        <li>FIX: autoplay when adding first track now works for all playlists</li>        <li>FIX: CherryMusic shuts down cleanly when parent process dies</li>        <li>FIX: `media.basedir` can now handle trailing path separator</li>        <li>FIX: Can change and delete playlists again</li>        <li>FIX: Can delete users again</li>        <li>FIX: Online indicator in admin dialog works again</li>        <li>IMPROVEMENT: online tracking of test coverage at https://coveralls.io/r/devsnd/cherrymusic</li>        <li>IMPROVEMENT: audioread failure no longer pretends to be a serious error</li>      </ul>
+                        <ul>        <li>FEATURE: Change album art in media browser</li>        <li>FEATURE: Play WMA files via live transcoding (needs ffmpeg)</li>        <li>FEATURE: Update notifications for admins in web client         config key `update_notifications = [True] | False`<br></li>        <li>FEATURE: `--version` switch for main script displays useful info</li>        <li>FIX: !!! SSL config: relative paths are now relative to location of config file</li>        <li>FIX: Resolve some unicode issues when playing tracks containing non-ASCII characters</li>        <li>FIX: autoplay when adding first track now works for all playlists</li>        <li>FIX: CherryMusic shuts down cleanly when parent process dies</li>        <li>FIX: `media.basedir` can now handle trailing path separator</li>        <li>FIX: Can change and delete playlists again</li>        <li>FIX: Can delete users again</li>        <li>FIX: Online indicator in admin dialog works again</li>        <li>IMPROVEMENT: online tracking of test coverage at https://coveralls.io/r/devsnd/cherrymusic</li>        <li>IMPROVEMENT: audioread failure no longer pretends to be a serious error</li>      </ul>
                     </div>
                 </div>
                 <div class="accordion-heading">

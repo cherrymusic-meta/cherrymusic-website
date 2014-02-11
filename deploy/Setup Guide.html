@@ -267,6 +267,9 @@ WantedBy=multi-user.target
 $ sudo systemctl enable cherrymusic@USER.service
 </code></pre>
 <p>Note that although the CherryMusic service is now run as the user "USER", the service calls still have to be given as root.</p>
+<a name="running-as-debian-daemon"></a><h2>Running as Debian Daemon</h2>
+<p>There is a script to start/stop/restart/update CM in debian, kindly provided by Lord-Simon, see here: </p>
+<p>https://github.com/Lord-Simon/Scripts/blob/master/cherrymusic</p>
 <a name="running-in-a-gnu-screen-session"></a><h2>Running in a GNU Screen session</h2>
 <p>To keep CherryMusic running after logout, it can be run in a <a href="https://www.gnu.org/software/screen/">GNU Screen</a> session.</p>
 <pre><code>$ screen -d -m -S cherrymusic cherrymusic
