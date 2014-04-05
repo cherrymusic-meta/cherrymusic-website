@@ -95,7 +95,7 @@
         </div><p><a href="http://fomori.org/cherrymusic">CherryMusic</a> is a <strong>music streaming server</strong> based on <a href="http://www.cherrypy.org">CherryPy</a> and <a href="http://jplayer.org">jPlayer</a>. It can be run remotely or on a single computer and is designed to handle huge music libraries of 3 TB and more; it also works well with small collections. In contrast to <a href="http://www.musicpd.org">MPD</a>, <a href="http://www.icecast.org">Icecast</a> and the like, CherryMusic allows <strong>multiple users</strong> to log in via HTTP/HTTPS using a web browser, browse and search the music database, manage playlists and stream music to the browser. The project is developed here, on <a href="https://github.com/devsnd/cherrymusic">GitHub</a>.</p>
 <p>The CherryMusic server runs on <strong>Linux</strong>, <strong>Windows</strong> and <strong>OS X</strong>, as long as <a href="http://python.org/download/releases">Python</a> is available. To use the web client, any device with a modern browser will do.</p>
 <hr />
-<p><strong>As of now, this wiki is rather *NIX specific. Please contribute to this wiki to make this page more microsoft windows friendly</strong></p>
+<p><strong>As of now, this wiki is rather *NIX specific. Please contribute to this wiki to make this page more Microsoft Windows friendly.</strong></p>
 <hr />
 <a name="contents"></a><h1>Contents</h1>
 <ul>
@@ -129,10 +129,11 @@
 <p>Run <code>python cherrymusic --setup --port 8080</code> in the CherryMusic directory.</p>
 </li>
 <li>
-<p>Go to <code>http://localhost:8080</code> for basic configuration and later the web client.</p>
+<p>Go to <code>http://localhost:8080</code> for basic configuration. To access the CherryMusic service from your HTML5 device later, open your browser and type your computer's IP address followed by a colon and the port you configured (<em>8080</em> if you did not change it). Example:</p>
+<p><code>92.167.7.9:8080</code></p>
 </li>
 <li>
-<p>From then on, run <code>python cherrymusic</code> to start the server.</p>
+<p>From then on, run <code>python cherrymusic</code> to start the CherryMusic service on your server.</p>
 </li>
 </ol>
 <a name="installation"></a><h1>Installation</h1>
@@ -177,11 +178,7 @@ Also see the <a href="https://github.com/devsnd/cherrymusic/wiki/Microsoft-Windo
 <ul>
 <li>
 <p>Live transcoding:
-<em><a href="http://lame.sourceforge.net">lame</a></em>, <em><a href="https://www.xiph.org/vorbis">vorbis-tools</a></em>, <em><a href="https://www.xiph.org/flac">flac</a></em>, <em><a href="http://www.audiocoding.com">faad2</a></em>, <em><a href="http://sourceforge.net/projects/mpg123">mpg123</a></em> or <em><a href="http://ffmpeg.org">ffmpeg</a></em> (which replaces the abovementioned codecs plus adds WMA decoding)</p>
-</li>
-<li>
-<p>ID3-Tag reading:
-<em><a href="https://pypi.python.org/pypi/stagger">stagger</a></em> (works only with Python 3)</p>
+<em><a href="http://lame.sourceforge.net">lame</a></em>, <em><a href="https://www.xiph.org/vorbis">vorbis-tools</a></em>, <em><a href="https://www.xiph.org/flac">flac</a></em>, <em><a href="http://www.audiocoding.com">faad2</a></em>, <em><a href="http://sourceforge.net/projects/mpg123">mpg123</a></em> or <em><a href="http://ffmpeg.org">ffmpeg</a></em> (which replaces the aforementioned codecs plus adds WMA decoding)</p>
 </li>
 <li>
 <p>Automatic resizing of displayed cover art:
@@ -201,7 +198,6 @@ Also see the <a href="https://github.com/devsnd/cherrymusic/wiki/Microsoft-Windo
 </li>
 </ul>
 <p>If possible, you should install those dependencies via your system's package management (on UNIX-like OS).</p>
-<p>If you do not want to install <em>stagger</em> on your system, you can simply skip it. On the first start of CherryMusic, it will figure out that <em>stagger</em> is missing and offer you to download a local copy into the CherryMusic directory, keeping your system clean.</p>
 <a name="configuration"></a><h1>Configuration</h1>
 <a name="setup-in-browser"></a><h2>Setup in Browser</h2>
 <p>To just get it up and running with a basic setup, issue:</p>
@@ -279,7 +275,7 @@ $ sudo systemctl enable cherrymusic@USER.service
 <p>Note that although the CherryMusic service is now run as the user "USER", the service calls still have to be given as root.</p>
 <a name="running-as-debian-daemon"></a><h2>Running as Debian Daemon</h2>
 <p>There is a script to start/stop/restart/update CM in debian, kindly provided by Lord-Simon, see here: </p>
-<p>https://github.com/Lord-Simon/Scripts/blob/master/cherrymusic</p>
+<p>https://github.com/Lord-Simon/cherrymusic-conf/blob/master/cherrymusic</p>
 <a name="running-in-a-gnu-screen-session"></a><h2>Running in a GNU Screen session</h2>
 <p>To keep CherryMusic running after logout, it can be run in a <a href="https://www.gnu.org/software/screen/">GNU Screen</a> session.</p>
 <pre><code>$ screen -d -m -S cherrymusic cherrymusic
