@@ -276,6 +276,11 @@ $ sudo systemctl enable cherrymusic@USER.service
 <a name="running-as-debian-daemon"></a><h2>Running as Debian Daemon</h2>
 <p>There is a script to start/stop/restart/update CM in debian, kindly provided by Lord-Simon, see here: </p>
 <p>https://github.com/Lord-Simon/cherrymusic-conf/blob/master/cherrymusic</p>
+<a name="running-at-startup-using-crontab"></a><h2>Running at startup using crontab</h2>
+<p>This is probably the easiest way to have cherrymusic run at startup on a Linux system. From your terminal, type <code>EDITOR=nano crontab -e</code>. Use the arrow keys to scroll down to the bottom of the file, and insert a line:</p>
+<pre><code>@reboot cd /path/to/your/cherrymusic/installation ; python cherrymusic
+</code></pre>
+<p>Then press CTRL+X, y, then [ENTER] to save the file. The next time you reboot, cherrymusic will start.</p>
 <a name="running-in-a-gnu-screen-session"></a><h2>Running in a GNU Screen session</h2>
 <p>To keep CherryMusic running after logout, it can be run in a <a href="https://www.gnu.org/software/screen/">GNU Screen</a> session.</p>
 <pre><code>$ screen -d -m -S cherrymusic cherrymusic
