@@ -230,6 +230,15 @@ WantedBy = multi-user.target
 </li>
 </ul>
 <a name="troubleshooting"></a><h1>Troubleshooting</h1>
+<a name="missing-module-<code>wsgiserver2</code>"></a><h2>Missing module <code>wsgiserver2</code></h2>
+<p>If you get an </p>
+<pre><code>ImportError: No module named wsgiserver2
+</code></pre>
+<p>when starting cherrymusic, you're probably using a broken cherrypy package from pip (versions <code>3.2.6</code> and <code>3.4.0</code> seem to be affected). Here's a <a href="http://alessiofanelli.com/cherrypy-pip-package-not-working-properly-frustration/">description of the problem</a>. To fix, uninstall cherrypy and reinstall:</p>
+<pre><code>$ pip uninstall cherrypy
+$ pip install --no-use-wheel cherrypy
+</code></pre>
+<p>Please <a href="https://github.com/devsnd/cherrymusic/issues/new">let us know</a> if this doesn't work.</p>
 <a name="deactivate-flash-blocker"></a><h2>Deactivate flash blocker</h2>
 <p>An active flash blocker can interfere with the web frontend. If you have trouble with things like track selection or playback, try whitelisting the server in your browser's flash blocker/plugin manager.</p>
 <a name="cherrymusic-does-not-load-on-android-chrome"></a><h2>CherryMusic does not load on Android Chrome</h2>
