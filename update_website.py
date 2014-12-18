@@ -51,14 +51,14 @@ def downloadtags():
     print('updating wiki repo...')
     print(utf8(subprocess.check_output(['git','--git-dir='+GITPATH_WIKI, '--work-tree='+PATH_WIKI, 'pull'])))
     print('updating sources repo...')
-    print(utf8(subprocess.check_output(['git','--git-dir='+GITPATH_SOURCES, '--work-tree='+PATH_SOURCES, 'pull'])))
+    print(utf8(subprocess.check_output(['git','--git-dir='+GITPATH_SOURCES, '--work-tree='+PATH_SOURCES, 'pull', '--tags'])))
     print('DOWNLOADING tagged master versions')
     print('Getting Version info...')
     TAGS=subprocess.check_output(['git','--git-dir='+GITPATH_SOURCES, '--work-tree='+PATH_SOURCES, 'tag']).split()
     TAGS=map(utf8,TAGS)
     if not os.path.exists(VERSIONPATH):
         os.makedirs(VERSIONPATH)
-    
+
     for i in TAGS:
         dldest = os.path.join(VERSIONPATH, 'cherrymusic-'+i+'.tar.gz')
         dlsource = 'https://github.com/devsnd/cherrymusic/tarball/'+i
@@ -142,7 +142,7 @@ def generateDownload(content):
     content = content.replace("<!--LATEST_VERSION_NUMBER-->",get_version_by_filename(allversions[0]))
     content = content.replace("<!--OLD_VERSIONS-->",'\n'.join(map(listify, allversions[1:])))
     return content
-        
+
 def generateScreenshotSection(content):
     if not os.path.exists(SCREENSHOTTHUMBS):
         os.mkdir(thumbnaildir)
@@ -166,7 +166,7 @@ def generateScreenshotList(imgsize):
             print('Creating thumbnail for '+shot)
             with open(screenshotthumb, 'wb') as thumbfile:
                 thumbfile.write(resizeImage(screenshotfileabs, (imgsize,imgsize)))
-                
+
     images = []
     for shot in sorted(os.listdir(SCREENSHOTSABS)):
         images.append( (os.path.join(SCREENSHOTDIR_NAME,shot), os.path.join(SCREENSHOTDIR_NAME,SCREENSHOT_THUMB_NAME,shot)) )
@@ -180,7 +180,7 @@ def generateScreenshotList(imgsize):
                 <img height="%d" src="%s" /><br></a>
             </div>
             '''%(image[0],imgsize,image[1])
-        rethtml += '</div>'    
+        rethtml += '</div>'
     return rethtml
 
 def parseChangelog():
@@ -230,7 +230,7 @@ def anchorHeadlines(content):
         anchor = match.group(1).replace(' ', '-').lower()
         return '<a name="%s"></a>%s' % (anchor, match.group(0))
     return re.sub('<h\d.*?>(.+?)<\/h\d>', headline_with_anchor, content)
-    
+
 
 def genWikiLink(linkmatch):
     wikimedialink = linkmatch.group(0)[2:-2]
