@@ -3,7 +3,7 @@
         Please feel free to edit and contribute to the wiki to improve this page.</a>
         Thank you.
         </div><p><a href="http://fomori.org/cherrymusic">CherryMusic</a> is a <strong>music streaming server</strong> based on <a href="http://www.cherrypy.org">CherryPy</a> and <a href="http://jplayer.org">jPlayer</a>. It can be run remotely or on a single computer and is designed to handle huge music libraries of 3 TB and more; it also works well with small collections. In contrast to <a href="http://www.musicpd.org">MPD</a>, <a href="http://www.icecast.org">Icecast</a> and the like, CherryMusic allows <strong>multiple users</strong> to log in via HTTP/HTTPS using a web browser, browse and search the music database, manage playlists and stream music to the browser. The project is developed here, on <a href="https://github.com/devsnd/cherrymusic">GitHub</a>.</p>
-<p>The CherryMusic server runs on <strong>Linux</strong>, <strong>Windows</strong> and <strong>OS X</strong>, as long as <a href="http://python.org/download/releases">Python</a> is available. To use the web client, any device with a modern browser will do.</p>
+<p>The CherryMusic server runs on <strong>Linux</strong>, <strong>Windows</strong> and <strong>OS X</strong>, as long as <a href="https://python.org/download/releases">Python</a> and <a href="https://sqlite.org">SQLite</a> are available. To use the web client, any device with a modern browser will do.</p>
 <hr />
 <p><strong>As of now, this wiki is rather *NIX specific. Please contribute to this wiki to make this page more Microsoft Windows friendly.</strong></p>
 <hr />
@@ -54,9 +54,15 @@
 <p>Please see the CherryMusic page at the <a href="https://wiki.archlinux.org/index.php/CherryMusic">Arch Linux Wiki</a>.</p>
 <a name="debian-(wheezy)"></a><h3>Debian (Wheezy)</h3>
 <p>Please see <a href="http://fomori.org/blog/?p=687">this excellent blog post</a> for a step-by-step guide to install and configure CherryMusic on Debian Wheezy.</p>
+<a name="ubuntu"></a><h3>Ubuntu</h3>
+<p>You can use the same guide as with debian wheezy. The only difference is the lack of an ffmpeg package, which is needed to support decoding of WMA files. You need to add an external repository to be able to install ffmpeg on ubuntu 14 and lower. But this is probably for x86 and x64 only:</p>
+<pre><code>add-apt-repository ppa:mc3man/trusty-media
+apt-get update
+</code></pre>
+<p>Here's a quick <a href="http://askubuntu.com/questions/35629/are-ppas-safe-to-add-to-my-system-and-what-are-some-red-flags-to-watch-out-fo">overview of the security implications</a> when using a third-party repository.</p>
 <a name="microsoft-windows"></a><h3>Microsoft Windows</h3>
-<p>You need to <a href="http://www.python.org/download/releases/">install the Python runtime</a> for CherryMusic to work. We recommend to use the latest version of Python 3.</p>
-<p><a href="http://superuser.com/a/143121/122208">Add the Python executable to your <code>%PATH%</code></a> environment variable for easier access in the command line.</p>
+<p>You need to <a href="https://www.python.org/download/releases/">install the Python runtime</a> for CherryMusic to work. We recommend to use the latest version of Python 3.</p>
+<p><a href="https://superuser.com/a/143121/122208">Add the Python executable to your <code>%PATH%</code></a> environment variable for easier access in the command line.</p>
 <p>Open your command line using <code>Windows + R</code> and entering <code>cmd</code>. Navigate to the folder where you have downloaded and uncompressed CherryMusic using the <code>cd</code> commmand.</p>
 <p>Configure and start the server as described in the <a href="Setup Guide.html#Configuration">Configuration section</a>.
 Also see the <a href="https://github.com/devsnd/cherrymusic/wiki/Microsoft-Windows-setup-guide">
@@ -78,8 +84,9 @@ Also see the <a href="https://github.com/devsnd/cherrymusic/wiki/Microsoft-Windo
 <a name="dependencies"></a><h1>Dependencies</h1>
 <a name="required-dependencies"></a><h2>Required Dependencies</h2>
 <ul>
-<li><a href="http://python.org/download/releases">Python</a> (&gt;= 2.6, &gt;=3.2 preferred),</li>
-<li><a href="http://www.cherrypy.org">CherryPy</a> (&gt;= 3).</li>
+<li><a href="https://python.org/download/releases">Python</a> (&gt;= 2.6, &gt;=3.2 preferred),</li>
+<li><a href="http://www.cherrypy.org">CherryPy</a> (&gt;= 3),</li>
+<li><a href="https://sqlite.org">SQLite</a>.</li>
 </ul>
 <p>If possible, you should install these via your system's package management (on UNIX-like OS).</p>
 <p>If you do not want to install CherryPy on your system, you can also use a local copy in your CherryMusic directory instead: When CherryMusic does not find CherryPy on startup, it will offer to download a copy of it into its own directory, keeping your system clean.</p>
@@ -88,7 +95,7 @@ Also see the <a href="https://github.com/devsnd/cherrymusic/wiki/Microsoft-Windo
 <ul>
 <li>
 <p>Live transcoding:
-<em><a href="http://lame.sourceforge.net">lame</a></em>, <em><a href="https://www.xiph.org/vorbis">vorbis-tools</a></em>, <em><a href="https://www.xiph.org/flac">flac</a></em>, <em><a href="http://www.audiocoding.com">faad2</a></em>, <em><a href="http://sourceforge.net/projects/mpg123">mpg123</a></em> or <em><a href="http://ffmpeg.org">ffmpeg</a></em> (which replaces the aforementioned codecs plus adds WMA decoding)</p>
+<em><a href="http://lame.sourceforge.net">lame</a></em>, <em><a href="https://www.xiph.org/vorbis">vorbis-tools</a></em>, <em><a href="https://www.xiph.org/flac">flac</a></em>, <em><a href="http://www.audiocoding.com">faad2</a></em>, <em><a href="https://sourceforge.net/projects/mpg123">mpg123</a></em> or <em><a href="https://ffmpeg.org">ffmpeg</a></em> (which replaces the aforementioned codecs plus adds WMA decoding)</p>
 </li>
 <li>
 <p>Automatic resizing of displayed cover art:
