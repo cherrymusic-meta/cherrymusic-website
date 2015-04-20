@@ -55,11 +55,11 @@
 <a name="debian-(wheezy)"></a><h3>Debian (Wheezy)</h3>
 <p>Please see <a href="http://fomori.org/blog/?p=687">this excellent blog post</a> for a step-by-step guide to install and configure CherryMusic on Debian Wheezy.</p>
 <a name="ubuntu"></a><h3>Ubuntu</h3>
-<p>You can use the same guide as with debian wheezy. The only difference is the lack of an ffmpeg package, which is needed to support decoding of WMA files. You need to add an external repository to be able to install ffmpeg on ubuntu 14 and lower. But this is probably for x86 and x64 only:</p>
+<p>The Debian Wheezy guide (see above) can be applied. The only difference is the lack of a ffmpeg package, which is needed to support decoding of WMA files. An external repository needs to be added to be able to install ffmpeg on Ubuntu 14 and lower. But this is probably for x86 and x64 only:</p>
 <pre><code>add-apt-repository ppa:mc3man/trusty-media
-apt-get update
+aptitude update
 </code></pre>
-<p>Here's a quick <a href="http://askubuntu.com/questions/35629/are-ppas-safe-to-add-to-my-system-and-what-are-some-red-flags-to-watch-out-fo">overview of the security implications</a> when using a third-party repository.</p>
+<p>Here is a quick <a href="http://askubuntu.com/questions/35629/are-ppas-safe-to-add-to-my-system-and-what-are-some-red-flags-to-watch-out-fo">overview of the security implications</a> when using a third-party repository.</p>
 <a name="microsoft-windows"></a><h3>Microsoft Windows</h3>
 <p>You need to <a href="https://www.python.org/download/releases/">install the Python runtime</a> for CherryMusic to work. We recommend to use the latest version of Python 3.</p>
 <p><a href="https://superuser.com/a/143121/122208">Add the Python executable to your <code>%PATH%</code></a> environment variable for easier access in the command line.</p>
@@ -95,7 +95,7 @@ Also see the <a href="https://github.com/devsnd/cherrymusic/wiki/Microsoft-Windo
 <ul>
 <li>
 <p>Live transcoding:
-<em><a href="http://lame.sourceforge.net">lame</a></em>, <em><a href="https://www.xiph.org/vorbis">vorbis-tools</a></em>, <em><a href="https://www.xiph.org/flac">flac</a></em>, <em><a href="http://www.audiocoding.com">faad2</a></em>, <em><a href="https://sourceforge.net/projects/mpg123">mpg123</a></em> or <em><a href="https://ffmpeg.org">ffmpeg</a></em> (which replaces the aforementioned codecs plus adds WMA decoding)</p>
+<em><a href="http://lame.sourceforge.net">lame</a></em>, <em><a href="https://www.xiph.org/vorbis">vorbis-tools</a></em>, <em><a href="https://www.xiph.org/flac">flac</a></em>, <em><a href="http://www.audiocoding.com">faad2</a></em>, <em><a href="https://sourceforge.net/projects/mpg123">mpg123</a></em>, <em><a href="https://wiki.xiph.org/Opus-tools">opus-tools</a></em> or <em><a href="https://ffmpeg.org">ffmpeg</a></em> (which replaces the aforementioned codecs plus adds WMA decoding)</p>
 </li>
 <li>
 <p>Automatic resizing of displayed cover art:
@@ -160,7 +160,7 @@ $ ln -s /path/to/musicdir2 ~/.local/share/cherrymusic/basedir/musicdir2
 <a name="systemd-service-file"></a><h3>systemd service file</h3>
 <p>CherryMusic does not come with a daemon yet, but both CherryMusic <em>AUR</em> packages, <a href="https://aur.archlinux.org/packages/cherrymusic/">stable</a> and <a href="https://aur.archlinux.org/packages/cherrymusic-devel-git/">devel</a>, provide a <em>systemd service file</em> that can be used on any <em>systemd</em> operating system.</p>
 <p><strong>NOTE:</strong> If you are running <a href="https://www.archlinux.org">Arch Linux</a> and installed one of the above mentioned <em>AUR</em> packages, the <em>systemd service file</em> is already in place. All you need to do is enable the service as described at the end of this section. However, it is recommended that you follow the Arch Linux specific instructions as mentioned in section <a href="Setup Guide.html#os-specific">OS-specific</a>.</p>
-<p><strong>File:</strong> <em>/usr/lib/systemd/system/cherrymusic@.service</em></p>
+<p><strong>File:</strong> <em>/etc/systemd/system/cherrymusic@.service</em> or <em>/usr/lib/systemd/system/cherrymusic@.service</em> (path for systemd units, that came with installed packages)</p>
 <pre><code>[Unit]
 Description=CherryMusic server
 Requires=network.target
@@ -177,11 +177,11 @@ Restart=always
 [Install]
 WantedBy=multi-user.target
 </code></pre>
-<p>This file has to be placed into <code>/usr/lib/systemd/system/</code>:</p>
-<pre><code>$ sudo cp cherrymusic@.service /usr/lib/systemd/system/cherrymusic@.service
+<p>This file has to be placed into <code>/etc/systemd/system/</code>:</p>
+<pre><code>$ sudo cp cherrymusic@.service /etc/systemd/system/cherrymusic@.service
 </code></pre>
 <p>and the permissions should be changed:</p>
-<pre><code>$ sudo chmod 644 /usr/lib/systemd/system/cherrymusic@.service
+<pre><code>$ sudo chmod 644 /etc/systemd/system/cherrymusic@.service
 </code></pre>
 <p>If you want CherryMusic to run as a system service and to automatically start on boot, simply do:</p>
 <a name="start-and-enable-the-systemd-service"></a><h3>Start and enable the systemd service</h3>
@@ -203,8 +203,8 @@ $ sudo systemctl enable cherrymusic@USER.service
 <pre><code>$ screen -d -m -S cherrymusic cherrymusic
 </code></pre>
 <p>Since CherryMusic only writes the output to the GNU Screen session, there is nothing to control from within the session. It may be more convenient to use a <a href="http://freedesktop.org/wiki/Software/systemd">systemd</a> service file (Also see section <a href="Setup Guide.html#systemd-service">Systemd service</a> above.). However, this may still be useful for debugging.</p>
-<p>To run it in a GNU Screen session after boot, the following <a href="http://freedesktop.org/wiki/Software/systemd">systemd</a> service file can also be used:</p>
-<p><strong>File:</strong> <em>/usr/lib/systemd/system/cherrymusic@.service</em>
+<p>To run it in a GNU Screen session after boot, the following <a href="http://freedesktop.org/wiki/Software/systemd">systemd</a> service file can also be created and used:</p>
+<p><strong>File:</strong> <em>/etc/systemd/system/cherrymusic@.service</em>
 ```
 [Unit]
 Description = CherryMusic server
@@ -221,13 +221,16 @@ Restart = always</p>
 <p>[Install]
 WantedBy = multi-user.target
 ```</p>
-<p>This file has to be placed into <code>/usr/lib/systemd/system/</code>:</p>
-<pre><code>$ sudo cp cherrymusic@.service /usr/lib/systemd/system/cherrymusic@.service
+<p>This file has to be placed into <code>/etc/systemd/system/</code>:</p>
+<pre><code>$ sudo cp cherrymusic@.service /etc/systemd/system/cherrymusic@.service
 </code></pre>
 <p>and the permissions should be changed:</p>
-<pre><code>$ sudo chmod 644 /usr/lib/systemd/system/cherrymusic@.service
+<pre><code>$ sudo chmod 644 /etc/systemd/system/cherrymusic@.service
 </code></pre>
 <p>To finally enable and start the service, see section <a href="Setup Guide.html#Start and enable the systemd service">Systemd service</a> above.</p>
+<a name="manually-adjust-the-search-parameters-of-the-search-algorithm"></a><h2>Manually adjust the search parameters of the search algorithm</h2>
+<p>The search parameters of the search algorithm can be adjusted manually via the file <em>cherrymusicserver/tweak.py</em> within your CherryMusic installation.</p>
+<p><strong>Caution!</strong> Changing this file can potentially break CherryMusic's search function. Only proceed if you know what you are doing. It might also be a good idea to backup the file before editing.</p>
 <a name="3rd-party-extensions"></a><h1>3rd Party Extensions</h1>
 <ul>
 <li>
@@ -241,11 +244,11 @@ WantedBy = multi-user.target
 <p>If you get an </p>
 <pre><code>ImportError: No module named wsgiserver2
 </code></pre>
-<p>when starting cherrymusic, you're probably using a broken cherrypy package from pip (versions <code>3.2.6</code> and <code>3.4.0</code> seem to be affected). Here's a <a href="http://alessiofanelli.com/cherrypy-pip-package-not-working-properly-frustration/">description of the problem</a>. To fix, uninstall cherrypy and reinstall:</p>
+<p>when starting cherrymusic, you are probably using a broken cherrypy package from pip (versions <code>3.2.6</code> and <code>3.4.0</code> seem to be affected). Here is a <a href="http://alessiofanelli.com/cherrypy-pip-package-not-working-properly-frustration/">description of the problem</a>. To fix, uninstall cherrypy and reinstall:</p>
 <pre><code>$ pip uninstall cherrypy
 $ pip install --no-use-wheel cherrypy
 </code></pre>
-<p>Please <a href="https://github.com/devsnd/cherrymusic/issues/new">let us know</a> if this doesn't work.</p>
+<p>Please <a href="https://github.com/devsnd/cherrymusic/issues/new">let us know</a> if this does not work.</p>
 <a name="deactivate-flash-blocker"></a><h2>Deactivate flash blocker</h2>
 <p>An active flash blocker can interfere with the web frontend. If you have trouble with things like track selection or playback, try whitelisting the server in your browser's flash blocker/plugin manager.</p>
 <a name="cherrymusic-does-not-load-on-android-chrome"></a><h2>CherryMusic does not load on Android Chrome</h2>
