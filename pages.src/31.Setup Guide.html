@@ -236,15 +236,15 @@ WantedBy = multi-user.target
 <li>
 <p>CherryMusic Control - A Playback control plugin for Firefox:</p>
 <p>https://addons.mozilla.org/en-US/firefox/addon/cherrymusic-control/</p>
-<p>which is also developed on github: https://github.com/Sets88/cherrymusicctrl</p>
+<p>which is also developed on GitHub: https://github.com/Sets88/cherrymusicctrl</p>
 </li>
 </ul>
 <a name="troubleshooting"></a><h1>Troubleshooting</h1>
-<a name="missing-module-<code>wsgiserver2</code>"></a><h2>Missing module <code>wsgiserver2</code></h2>
+<a name="missing-module-<code>wsgiserver2</code>-when-using-pip-for-installation"></a><h2>Missing module <code>wsgiserver2</code> when using pip for installation</h2>
 <p>If you get an </p>
 <pre><code>ImportError: No module named wsgiserver2
 </code></pre>
-<p>when starting cherrymusic, you are probably using a broken cherrypy package from pip (versions <code>3.2.6</code> and <code>3.4.0</code> seem to be affected). Here is a <a href="http://alessiofanelli.com/cherrypy-pip-package-not-working-properly-frustration/">description of the problem</a>. To fix, uninstall cherrypy and reinstall:</p>
+<p>when starting CherryMusic, you are probably using a broken CherryPy package from pip (versions <code>3.2.6</code> and <code>3.4.0</code> seem to be affected). Here is a <a href="http://alessiofanelli.com/cherrypy-pip-package-not-working-properly-frustration/">description of the problem</a>. To fix this, uninstall CherryPy and reinstall:</p>
 <pre><code>$ pip uninstall cherrypy
 $ pip install --no-use-wheel cherrypy
 </code></pre>
@@ -253,6 +253,9 @@ $ pip install --no-use-wheel cherrypy
 <p>An active flash blocker can interfere with the web frontend. If you have trouble with things like track selection or playback, try whitelisting the server in your browser's flash blocker/plugin manager.</p>
 <a name="cherrymusic-does-not-load-on-android-chrome"></a><h2>CherryMusic does not load on Android Chrome</h2>
 <p>This might be due to AdBlock Plus being installed in the browser. CM doesn't feature any ads, so the error is on their side.</p>
+<a name="track-scrolling-not-working-behind-nginx"></a><h2>Track scrolling not working behind Nginx</h2>
+<p>If track scrolling is not working in major desktop browsers behind Nginx and playback stops in the middle of the track and start over from the beginning, the Nginx module <code>ngx_http_proxy_module</code> <a href="http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_http_version">has to be configured</a>:</p>
+<p>Change the line <code>proxy_http_version 1.0;</code> to <code>proxy_http_version 1.1;</code>.</p>
 <a name="microsoft-windows"></a><h2>Microsoft Windows</h2>
 <p>If you are using MS Windows the following error may occur:
 <code>FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Documents and Settings\\username\\.cherrymusic\
