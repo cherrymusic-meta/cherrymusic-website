@@ -191,13 +191,13 @@ $ sudo systemctl enable cherrymusic@USER.service
 </code></pre>
 <p>Note that although the CherryMusic service is now run as the user "USER", the service calls still have to be given as root.</p>
 <a name="running-as-debian-daemon"></a><h2>Running as Debian Daemon</h2>
-<p>There is a script to start/stop/restart/update CM in debian, kindly provided by Lord-Simon, see here: </p>
+<p>There is a script to start/stop/restart/update CherryMusic in Debian, kindly provided by Lord-Simon, see here: </p>
 <p>https://github.com/Lord-Simon/cherrymusic-conf/blob/master/cherrymusic</p>
 <a name="running-at-startup-using-crontab"></a><h2>Running at startup using crontab</h2>
-<p>This is probably the easiest way to have cherrymusic run at startup on a Linux system. From your terminal, type <code>EDITOR=nano crontab -e</code>. Use the arrow keys to scroll down to the bottom of the file, and insert a line:</p>
+<p>This is probably the easiest way to have CherryMusic run at startup on a Linux system. From your terminal, type <code>EDITOR=nano crontab -e</code>. Use the arrow keys to scroll down to the bottom of the file, and insert a line:</p>
 <pre><code>@reboot cd /path/to/your/cherrymusic/installation ; python cherrymusic
 </code></pre>
-<p>Then press CTRL+X, y, then [ENTER] to save the file. The next time you reboot, cherrymusic will start.</p>
+<p>Then press CTRL+X, y, then [ENTER] to save the file. The next time you reboot, CherryMusic will start.</p>
 <a name="running-in-a-gnu-screen-session"></a><h2>Running in a GNU Screen session</h2>
 <p>To keep CherryMusic running after logout, it can be run in a <a href="https://www.gnu.org/software/screen/">GNU Screen</a> session.</p>
 <pre><code>$ screen -d -m -S cherrymusic cherrymusic
@@ -231,6 +231,18 @@ WantedBy = multi-user.target
 <a name="manually-adjust-the-search-parameters-of-the-search-algorithm"></a><h2>Manually adjust the search parameters of the search algorithm</h2>
 <p>The search parameters of the search algorithm can be adjusted manually via the file <em>cherrymusicserver/tweak.py</em> within your CherryMusic installation.</p>
 <p><strong>Caution!</strong> Changing this file can potentially break CherryMusic's search function. Only proceed if you know what you are doing. It might also be a good idea to backup the file before editing.</p>
+<a name="bind-cherrymusic-to-ports-less-than-1024-(without-root-access)"></a><h2>Bind CherryMusic to ports less than 1024 (without root access)</h2>
+<p>To bind CherryMusic (or any other application) to a port less than 1024 you normally need root access. However, you should <strong>never run CherryMusic as root!</strong>
+There are several ways around this:</p>
+<ul>
+<li>Use a firewall (<a href="http://www.netfilter.org/projects/iptables/index.html">iptables</a> or similar) for a port redirect</li>
+<li>Use <a href="https://en.wikipedia.org/wiki/Authbind">authbind</a></li>
+<li>Use <a href="http://linux.die.net/man/7/capabilities">capabilities</a> (more exactly <a href="http://linux.die.net/man/8/setcap">setcap</a>)</li>
+</ul>
+<p>For more information, see these references:</p>
+<p>https://serverfault.com/questions/268099/bind-to-ports-less-than-1024-without-root-access
+https://www.debian-administration.org/article/386/Running_network_services_as_a_non-root_user
+https://stackoverflow.com/questions/413807/is-there-a-way-for-non-root-processes-to-bind-to-privileged-ports-1024-on-l</p>
 <a name="3rd-party-extensions"></a><h1>3rd Party Extensions</h1>
 <ul>
 <li>
