@@ -123,7 +123,7 @@ def generateWebsite():
         content = content.replace('<!--TITLE-->', source_to_page_title(page_file_name))
         writeFile(os.path.join(DEPLOY_PATH, deploy_page_file_name), content)
     version_update_check = [{'version': v[0], 'date': v[1], 'features': f} for v, f in parseChangelog().items()]
-    writeFile(os.path.join(DEPLOY_PATH, 'update_check'), json.dumps(version_update_check))
+    writeFile(os.path.join(DEPLOY_PATH, 'update_check'), json.dumps(version_update_check, sort_keys=True))
 
 def readFile(filename):
     with open(filename,'r') as fh:
