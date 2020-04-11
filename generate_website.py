@@ -72,8 +72,7 @@ def downloadtags():
             except subprocess.CalledProcessError:
                 print('ERROR donwloading file! https://github.com/devsnd/cherrymusic/tarball/'+i)
                 exit(1)
-    print('adding all master versions to website repo...')
-    print(utf8(subprocess.check_output(['git','add',VERSIONPATH+'/*'])))
+        print(utf8(subprocess.check_output(['git','add','-f', VERSIONPATH+'/cherrymusic-'+i+'.tar.gz'])))
     print('done.')
 
 def source_to_page_file_name(filename):
