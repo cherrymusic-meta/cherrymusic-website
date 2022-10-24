@@ -35,12 +35,16 @@ WIKIPAGES = {
 
 INDEX = 'Home'
 
+def run(cmd):
+    print(' '.join(cmd))
+    return subprocess.check_output(cmd)
+
 if not os.path.exists(PATH_SOURCES):
     print('Checking out latest source repo')
-    subprocess.check_output(['git', 'clone', 'git://github.com/devsnd/cherrymusic.git', PATH_SOURCES])
+    run(['git', 'clone', 'git@github.com:devsnd/cherrymusic.git', PATH_SOURCES])
 if not os.path.exists(PATH_WIKI):
     print('Checking out latest wiki repo')
-    subprocess.check_output(['git', 'clone', 'git://github.com/devsnd/cherrymusic.wiki.git', PATH_WIKI])
+    run(['git', 'clone', 'git@github.com:devsnd/cherrymusic.wiki.git', PATH_WIKI])
 if not os.path.exists(DEPLOY_PATH):
     os.mkdir(DEPLOY_PATH)
 
@@ -49,12 +53,12 @@ def utf8(x):
 
 def downloadtags():
     print('updating wiki repo...')
-    print(utf8(subprocess.check_output(['git','--git-dir='+GITPATH_WIKI, '--work-tree='+PATH_WIKI, 'pull'])))
+    print(utf8(run(['git','--git-dir='+GITPATH_WIKI, '--work-tree='+PATH_WIKI, 'pull'])))
     print('updating sources repo...')
-    print(utf8(subprocess.check_output(['git','--git-dir='+GITPATH_SOURCES, '--work-tree='+PATH_SOURCES, 'pull', '--tags'])))
+    print(utf8(run(['git','--git-dir='+GITPATH_SOURCES, '--work-tree='+PATH_SOURCES, 'pull', '--tags'])))
     print('DOWNLOADING tagged master versions')
     print('Getting Version info...')
-    TAGS=subprocess.check_output(['git','--git-dir='+GITPATH_SOURCES, '--work-tree='+PATH_SOURCES, 'tag']).split()
+    TAGS=run(['git','--git-dir='+GITPATH_SOURCES, '--work-tree='+PATH_SOURCES, 'tag']).split()
     TAGS=map(utf8,TAGS)
     if not os.path.exists(VERSIONPATH):
         os.makedirs(VERSIONPATH)
@@ -122,7 +126,7 @@ def generateWebsite():
         content = content.replace('<!--TITLE-->', source_to_page_title(page_file_name))
         writeFile(os.path.join(DEPLOY_PATH, deploy_page_file_name), content)
     version_update_check = [{'version': v[0], 'date': v[1], 'features': f} for v, f in parseChangelog().items()]
-    writeFile(os.path.join(DEPLOY_PATH, 'update_check'), json.dumps(version_update_check, sort_keys=True))
+    writeFile(os.path.join(DEPLOY_PATH, 'update_check'), json.dumps(version_update_check, sort_keys=True, indent=2))
 
 def readFile(filename):
     with open(filename,'r') as fh:
