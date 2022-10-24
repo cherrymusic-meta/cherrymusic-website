@@ -16,7 +16,7 @@ GITPATH_WIKI = os.path.join(PATH_WIKI,'.git')
 
 MAIN_TEMPLATE = os.path.join(RESOURCES, 'template.html')
 PAGES_SOURCE_PATH = os.path.join(RESOURCES, 'pages.src')
-DEPLOY_PATH = os.path.join(RESOURCES, 'deploy')
+DEPLOY_PATH = '/home/tom/data/fomori-blog/devsnd.github.io/cherrymusic/' # os.path.join(RESOURCES, 'deploy')
 ASSET_PATH =  os.path.join(RESOURCES, 'pages.assets')
 
 SCREENSHOTDIR_NAME = 'screenshots'
